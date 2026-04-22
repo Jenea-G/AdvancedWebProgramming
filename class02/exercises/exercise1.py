@@ -4,7 +4,7 @@
 # create a function that shows full informnation
 
 class Friend:
-    def __init__(self, name, last_name, age, hobby, music):
+    def __init__(self, name, last_name, age, hobby, music = "none"):
         self.name = name
         self.last_name = last_name
         self.age = age
