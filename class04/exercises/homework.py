@@ -45,3 +45,34 @@ print(f"Students count: {Student.student_count}")
 student1.display_info()
 student2.display_info()
 student3.display_info()
+
+# Exercise 3 -- Create a class called Product.
+print("==== Exercise 3 ====")
+
+class Product:
+    category = "Electronics"
+    tax_rate = 0.15
+
+    def __init__ (self, name, price):
+        self.name = name
+        self.price = price
+
+    def price_with_tax(self):
+        self.price = round(self.price * (1 + self.tax_rate), 2)
+        # self.price = self.price + (self.price * self.tax_rate)
+        return self.price
+    
+product1 = Product("SSD", 340)
+product2 = Product("Mouse", 60)
+product3 = Product("Keyboard", 100)
+
+print(f"{product1.name}'s price with tax is {product1.price_with_tax()}")
+print(f"{product2.name}'s price with tax is {product2.price_with_tax()}")
+print(f"{product3.name}'s price with tax is {product3.price_with_tax()}")
+
+Product.tax_rate = 0.20
+print("--- Taxed changed --- ")
+
+print(f"{product1.name}'s price with tax is {product1.price_with_tax()}")
+print(f"{product2.name}'s price with tax is {product2.price_with_tax()}")
+print(f"{product3.name}'s price with tax is {product3.price_with_tax()}")
