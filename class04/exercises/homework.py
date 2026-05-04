@@ -76,3 +76,55 @@ print("--- Taxed changed --- ")
 print(f"{product1.name}'s price with tax is {product1.price_with_tax()}")
 print(f"{product2.name}'s price with tax is {product2.price_with_tax()}")
 print(f"{product3.name}'s price with tax is {product3.price_with_tax()}")
+
+# Exercise 3 -- Create a class called Employee.
+print("==== Exercise 4 ====")
+
+class Employee:
+    company_name = "TechNova"
+    bonus_rate = 0.10
+    employee_count = 0
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        self.increment_count()
+
+    def increment_count(self):
+        Employee.employee_count += 1
+
+    def calculate_bonus(self):
+        bonus = self.salary * self.bonus_rate
+        return bonus
+    
+    def display_employee(self):
+        print(f"{self.name} works at TechNova. Salary: {self.salary}. Bonus: {self.calculate_bonus()}")
+
+employee1 = Employee("John", 50000)
+employee2 = Employee("Jane", 60000)
+employee3 = Employee("Jake", 40000)
+
+employee1.display_employee()
+employee2.display_employee()
+employee3.display_employee()
+
+Employee.bonus_rate = 0.20 # class attribute change
+
+print('--- Class attribute "bonus rate" changed to 0.2')
+employee1.display_employee()
+employee2.display_employee()
+employee3.display_employee()
+
+employee1.bonus_rate = 0.50 # instance attribute change
+print('--- Instance attribute "bonus rate" changed for empoyee1 to 0.5')
+employee1.display_employee()
+employee2.display_employee()
+employee3.display_employee()
+
+Employee.bonus_rate = 0.05 # class attribute change
+print('--- Class attribute "bonus rate" changed to 0.05')
+employee1.display_employee()
+employee2.display_employee()
+employee3.display_employee()
+
+# employee1 has a shadowed bonus_rate as we changed it individually
