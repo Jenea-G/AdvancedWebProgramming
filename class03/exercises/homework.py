@@ -64,15 +64,15 @@ class UserAccount:
         if self.active == True:
             print(f"The user {self.username} is already active")
         else:
-         self.active = True
-         print(f"The user {self.username} is successfully activated")
+            self.active = True
+            print(f"The user {self.username} is successfully activated")
 
     def deactivate(self):
         if self.active == False:
             print(f"The user {self.username} is already deactivated")
         else:
-         self.active = False
-         print(f"The user {self.username} is successfully deactivated")
+            self.active = False
+            print(f"The user {self.username} is successfully deactivated")
 
     def login(self):
         if self.active == False:
