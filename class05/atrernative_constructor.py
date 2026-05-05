@@ -20,6 +20,11 @@ class Student:
         name, program = data.split(",")
         return cls(name, program)
     
+    # what if we want a new object out of not all of the inputs
+    @classmethod
+    def newly_admitted(cls, name): #alternative constructor
+        return cls(name, "")
+    
     @classmethod
     def from_form(cls, data):
         # parse the data according to how it's received
@@ -27,8 +32,10 @@ class Student:
     
 # student1 = Student("Alice", "Web Development") # valid!
 student1 = Student.from_string("Alice,Web Development") # Alternative Constructor
+student2 = Student.newly_admitted("John")
 
 print(f"{student1.name} studies in {student1.program}")
+print(f"{student2.name} studies in {student2.program}")
 
 # in real program, data often comes in a variety of formats!
 
@@ -42,4 +49,8 @@ print(f"{student1.name} studies in {student1.program}")
 # so for example if you have in your db, or an excel sheet:
 # value1,value2,value3
 
-# using the alt constructor we can parse the data properly
+# using the alt constructor we can parse the data properly !
+
+# alternative constructors are important, because the object always stays the same but the input
+# format changes.
+
