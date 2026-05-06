@@ -32,6 +32,9 @@ book3.display_info()
 book3.borrow()
 book3.display_info()
 
-print("Test for show_count() class method")
+print("=== Test for show_count() class method ===")
 Book.show_count()
 
+print("=== Test an alternative constructor ===")
+book4 = Book.from_string("The Pragmatic Programmer,David Tomas")
+book4.display_info()
