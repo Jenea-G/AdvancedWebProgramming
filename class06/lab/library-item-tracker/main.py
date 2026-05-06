@@ -21,6 +21,8 @@ Book.change_library_name("Bibliotheque de Vieux Saint-Laurent")
 print("Library name changed to:", Book.library_name)
 
 print("=== test static method ===")
+print(Book.is_valid("New Title"))
+print(Book.is_valid(""))
 book3 = Book("", "Any Author")
 book3 = Book("Clean Code", "Robert C.")
 print(f"Book3 has been created with the title: '{book3.title}', and the author: {book3.author}")
