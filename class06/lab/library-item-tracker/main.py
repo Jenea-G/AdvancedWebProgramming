@@ -24,3 +24,8 @@ print("=== test static method ===")
 book3 = Book("", "Any Author")
 book3 = Book("Clean Code", "Robert C.")
 print(f"Book3 has been created with the title: '{book3.title}', and the author: {book3.author}")
+
+print("=== tests after display_info method changed ===")
+book3.display_info()
+book3.borrow()
+book3.display_info()
