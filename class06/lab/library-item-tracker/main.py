@@ -2,8 +2,8 @@ from book import Book
 # I have moved Book class to the book.py file on "Part 6" of the lab as I have created it initially in main.py by error
 
 
-book1 = Book("The Little Prince", "Antoine de Saint-Exupery", False)
-book2 = Book("1984", "George Orwell")
+book1 = Book("The Little Prince", "Antoine de Saint-Exupery", "philosophical fable", False)
+book2 = Book("1984", "George Orwell", "dystopian, political fiction")
 # ==== Tests ====
 book1.display_info()
 book2.display_info()
@@ -36,5 +36,10 @@ print("=== Test for show_count() class method ===")
 Book.show_count()
 
 print("=== Test an alternative constructor ===")
-book4 = Book.from_string("The Pragmatic Programmer,David Tomas")
+book4 = Book.from_string("The Pragmatic Programmer,David Tomas,software engineering")
 book4.display_info()
+
+print("=== Test book genre instance attribute ===")
+print("book2 genre is:", book2.genre)
+print("book3 genre is:", book3.genre)
+print("book4 genre is:", book4.genre)

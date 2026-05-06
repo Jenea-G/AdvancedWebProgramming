@@ -2,13 +2,14 @@ class Book:
     library_name = "Central Library"
     count = 0
 
-    def __init__(self, title, author, available = True):
+    def __init__(self, title, author, genre = "not specified", available = True):
         if(self.is_valid(title)):
             self.title = title
         else:
             print("Please, enter a valid title.")
             return
         self.author = author
+        self.genre = genre
         self.available = available
         self.increment_count()
 
@@ -17,7 +18,7 @@ class Book:
             availability = "available"
         else:
             availability = "borrowed"
-        print(f"The book: '{self.title}' is written by the author: {self.author}. This book is {availability}.")
+        print(f"The book: '{self.title}' is written by the author: {self.author}, genre of the book is: {self.genre}. This book is {availability}.")
 
     def borrow(self):
         if(self.available):
@@ -47,8 +48,8 @@ class Book:
 
     @classmethod
     def from_string(cls, data):
-        title, author = data.split(",")
-        return cls(title, author)
+        title, author, genre = data.split(",")
+        return cls(title, author, genre)
 
     @staticmethod
     def is_valid(title):
