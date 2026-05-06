@@ -31,3 +31,7 @@ print("=== tests after display_info method changed ===")
 book3.display_info()
 book3.borrow()
 book3.display_info()
+
+print("Test for show_count() class method")
+Book.show_count()
+
