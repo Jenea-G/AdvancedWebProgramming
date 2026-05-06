@@ -1,46 +1,5 @@
-class Book:
-    library_name = "Central Library"
-
-    def __init__(self, title, author, available = True):
-        if(self.is_valid(title)):
-            self.title = title
-        else:
-            print("Please, enter a valid title.")
-            return
-        self.author = author
-        self.available = available
-
-    def display_info(self):
-        if (self.available):
-            availability = "available"
-        else:
-            availability = "not available"
-        print(f"The book '{self.title}' by {self.author} is {availability}.")
-
-    def borrow(self):
-        if(self.available):
-            self.available = False
-            print(f"The book '{self.title}' by {self.author} has been borrowed successfully.")
-        else: 
-            print(f"The book '{self.title}' by {self.author} has already been borrowed. Try another one.")
-    
-    def return_book(self):
-        if(self.available == False):
-            self.available = True
-            print(f"The book '{self.title}' by {self.author} has been returned successfully.")
-        else: 
-            print(f"I already have '{self.title}' by {self.author}, this is not my copy.")
-
-    @classmethod
-    def change_library_name(cls, new_name):
-        cls.library_name = new_name
-
-    @staticmethod
-    def is_valid(title):
-        if(len(title.strip()) > 0):
-            return True
-        else:
-            return False
+from book import Book
+# I have moved Book class to the book.py file on "Part 6" of the lab as I have created it initially in main.py by error
 
 
 book1 = Book("The Little Prince", "Antoine de Saint-Exupery", False)
