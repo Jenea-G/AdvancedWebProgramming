@@ -27,9 +27,13 @@ class Book:
 
 book1 = Book("The Little Prince", "Antoine de Saint-Exupery", False)
 book2 = Book("1984", "George Orwell")
+# ==== Tests ====
 book1.display_info()
 book2.display_info()
-
+print("==== tests borrow(), return_book() and display_info() =====")
 book1.borrow()
 book1.return_book()
 book2.return_book()
+
+book1.display_info()
+book2.display_info()
