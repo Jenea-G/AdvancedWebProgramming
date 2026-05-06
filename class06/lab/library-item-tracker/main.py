@@ -2,7 +2,11 @@ class Book:
     library_name = "Central Library"
 
     def __init__(self, title, author, available = True):
-        self.title = title
+        if(self.is_valid(title)):
+            self.title = title
+        else:
+            print("Please, enter a valid title.")
+            return
         self.author = author
         self.available = available
 
@@ -17,7 +21,12 @@ class Book:
     def change_library_name(cls, new_name):
         cls.library_name = new_name
 
-    
+    @staticmethod
+    def is_valid(title):
+        if(len(title.strip()) > 0):
+            return True
+        else:
+            return False
 
 
 book1 = Book("The Little Prince", "Antoine de Saint-Exupery", False)
@@ -29,3 +38,8 @@ print("=== test library name change ===")
 print(Book.library_name)
 Book.change_library_name("Bibliotheque de Vieux Saint-Laurent")
 print("Library name changed to:", Book.library_name)
+
+print("=== test static method ===")
+book3 = Book("", "Any Author")
+book3 = Book("Clean Code", "Robert C.")
+print(f"Book3 has been created with the title: '{book3.title}', and the author: {book3.author}")
