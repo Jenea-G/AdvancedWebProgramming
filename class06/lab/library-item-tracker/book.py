@@ -15,7 +15,7 @@ class Book:
             availability = "available"
         else:
             availability = "borrowed"
-        print(f"The book: '{self.title}' by the author: {self.author} is {availability}.")
+        print(f"The book: '{self.title}' is written by the author: {self.author}. This book is {availability}.")
 
     def borrow(self):
         if(self.available):
