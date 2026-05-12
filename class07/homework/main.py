@@ -84,15 +84,54 @@ save(jsonHandler)
 
 
 # 3. Create an abstract class:
+print("===== 3. Account ===== ")
 # Account
 # abstract method: calculate_fee()
+class Account(ABC):
+    @abstractmethod
+    def calculate_fee(self):
+        pass
 
 # Create subclasses:
 # SavingsAccount
 # PremiumAccount
-
 # Each returns a different fee.
 
+class SavingsAccount(Account):
+    type = "savings"
+
+    def __init__(self, holder_name, acc_number, balance):
+        self.holder_name = holder_name
+        self.acc_number = acc_number
+        self.balance = balance
+    
+    def calculate_fee(self):
+        if(self.balance == 0): fee = 5
+        if(self.balance < 100): fee = 2
+        else: fee = 0
+        return fee
+    
+class PremiumAccount(Account):
+    type = "premium"
+
+    def __init__(self, holder_name, acc_number, n_operations):
+        self.holder_name = holder_name
+        self.acc_number = acc_number
+        self.n_operation = n_operations
+    
+    def calculate_fee(self):
+        if(self.n_operation <= 10): fee = 4
+        else: fee = 8
+        return fee
+
+def show_fee(acc):
+    print(f"The monthly fee for {acc.type} account is: {acc.calculate_fee()}$.")
+
+savings1 = SavingsAccount("Leila", 1234, 100)
+premium1 = PremiumAccount("Billy", 456, 12)
+
+show_fee(savings1)
+show_fee(premium1)
 
 # 4. abstract Employee
 # Create:
