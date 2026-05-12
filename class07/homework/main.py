@@ -175,7 +175,9 @@ employee2 = PartTimeEmployee("Mr Fruit", 28, 20)
 
 show_salary(employee1)
 show_salary(employee2)
+
 # 5. abstract Media
+print("===== 5. Media ===== ")
 # Create:
 # abstract class Media
 # abstract method play()
@@ -185,3 +187,32 @@ show_salary(employee2)
 # Video
 
 # Each implements play() differently.
+
+class Media(ABC):
+    @abstractmethod
+    def play(self):
+        pass
+
+class Song(Media):
+    def __init__(self, name, band):
+        self.name = name
+        self.band = band
+
+    def play(self):
+        print(f"The song '{self.name}' is playing on Spotify")
+
+class Movie(Media):
+    def __init__(self, name, year):
+        self.name = name
+        self.year = year
+    
+    def play(self):
+        print(f"The movie '{self.name}' is playing in VLC player")
+
+def play_media(m):
+    m.play()
+
+song1 = Song("God is a DJ", "Faithless")
+movie1 = Movie("Interstellar", 2014)
+play_media(song1)
+play_media(movie1)
