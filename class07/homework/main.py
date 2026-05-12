@@ -134,16 +134,47 @@ show_fee(savings1)
 show_fee(premium1)
 
 # 4. abstract Employee
+print("===== 4. Employee ===== ")
 # Create:
 # abstract class Employee
 # abstract method calculate_salary()
+class Employee(ABC):
+    @abstractmethod
+    def calculate_salary(self):
+        pass
 
 # Subclasses:
 # FullTimeEmployee
 # PartTimeEmployee
 
 # Each should calculate salary differently.
+class FullTimeEmployee(Employee):
+    def __init__(self, name, rate):
+        self.name = name
+        self.rate = rate
 
+    def calculate_salary(self):
+        salary = self.rate * 8 * 14
+        return salary
+
+class PartTimeEmployee(Employee):
+    def __init__(self, name, rate, hours_week):
+        self.name = name
+        self.rate = rate
+        self.hours_week = hours_week
+
+    def calculate_salary(self):
+        salary = self.hours_week * self.rate * 2
+        return salary
+
+def show_salary(e):
+    print(f"The salary of {e.name} is {e.calculate_salary()}$ per two weeks.")
+
+employee1 = FullTimeEmployee("Mrs Bloom", 33)
+employee2 = PartTimeEmployee("Mr Fruit", 28, 20)
+
+show_salary(employee1)
+show_salary(employee2)
 # 5. abstract Media
 # Create:
 # abstract class Media
