@@ -128,3 +128,40 @@ def checkout(amount, fi):
 
 checkout(50, paypal_account)
 checkout(60, visa_card)
+
+print("===== animal class example ======")
+# another example 
+# i want to have multiple animal classes (dog, cat, etc.)
+# I want them all to be able to speak
+
+class Animal(ABC): # Abstract Base Class
+    @abstractmethod
+    def speak(self, voice):
+        pass
+
+class Dog(Animal):
+    voice = "Meow"
+
+    def speak(self):
+        print(f"The dog says {self.voice}")
+class Cat(Animal):
+    voice = "Woof"
+
+    def speak(self):
+        print(f"The cat says {self.voice}")
+
+def animal_sound(a):
+    a.speak()
+
+cat1 = Cat()
+dog1 = Dog()
+
+animal_sound(cat1)
+animal_sound(dog1)
+cat1.speak()
+dog1.speak()
+
+# With abstraction:
+# 1. The design is clearer (it's intentional!)
+# 2. subclasses are required to implement the method
+# 3. the shared purporse is explicit!
