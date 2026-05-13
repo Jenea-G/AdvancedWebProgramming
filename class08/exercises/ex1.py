@@ -32,7 +32,7 @@ class StudentAccount():
             print("The entered value is invalid")
 
     def use_credits(self, value):
-        if 0 != value < self.__credits:
+        if 0 < value <= self.__credits:
             self.__credits -= value
         else:
             print(f"The entered value is invalid. You cannot use {value} credits.")
