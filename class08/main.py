@@ -56,6 +56,7 @@ acc1.balance = -1000
 # 1. public
 name = "joe"
 
+# poorly incapsulated class
 class Student:
     def __init__(self, name):
         self.name = name
@@ -88,3 +89,55 @@ print(student3.__dict__) # we see that the __gpa was transformed to _Student__gp
 print(student3._Student__gpa) # result: 3.5
 
 # the goal of using this private accessor is to avoid accidental direct access
+
+
+# poorly encapsulated example
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+
+# how can we design it in a better ecapsulated way
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.__balance = balance # private!
+        # __balance is signaling internal use! withing the class itself
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+
+    def show_balance(self):
+        print(f"Balance is: {self.__balance}")
+
+bank_acc1 = BankAccount("Jane", 500)
+# bank_acc1.__balance = 1000 # this wouldnt work, will throw an error
+
+# the method is hadling the interaction
+bank_acc1.deposit(500) # deposit() handles data internally
+bank_acc1.show_balance() # show_balance() accesses data internally and then showes us!
+bank_acc1.withdraw(200) # withdraw() handles data internally
+bank_acc1.show_balance()
+
+# why is this better?
+#       rules are hadled through methods
+#       raw external data mutation/change is prohibited
+
+
+# another example
+
+class Temperature:
+    def __init__(self, celsius):
+        self.__celsius = celsius
+
+    def set_celsius(self, value):
+        if -90 < value < 58:
+            self.__celsius = value
+
+    def show_celsius(self):
+        print(f"{self.__celsius} C")
