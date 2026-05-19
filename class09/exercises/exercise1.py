@@ -104,7 +104,6 @@ p1 = Person("Sam", "Collins")
 print(p1.full_name)
 
 # Ex.5
-
 # Create a class with:
 #   owner
 #   private __balance
@@ -113,6 +112,41 @@ print(p1.full_name)
 #   setter prevents negative values
 #   method deposit(amount)
 #   method withdraw(amount)
+print("====== Ex.5 =====")
+class Account:
+    def __init__(self, acc_n, balance):
+        self.acc_n = acc_n
+        self.__balance = balance
+
+    @property
+    def balance(self):
+        return self.__balance
+    
+    @balance.setter
+    def balance(self, value):
+        if value >= 0:
+            self.__balance = value
+        else: print("Balance couldn't be less than 0")
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance = amount
+        else: "The amount should be more than 0"
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+        else: print(f"Impossible to withdraw the amount {amount}")
+
+acc1 = Account(13, 100)
+print(f"The account #{acc1.acc_n} balance is {acc1.balance}")
+acc1.balance = -10
+acc1.balance = 0
+print(f"The account #{acc1.acc_n} balance was set to {acc1.balance}")
+acc1.withdraw(10)
+acc1.deposit(500)
+print(f"The account #{acc1.acc_n} balance is {acc1.balance}")
+
 
 
 # Ex.6
@@ -125,6 +159,32 @@ print(p1.full_name)
 #   property price
 #   setter prevents negative values
 #   read-only property inventory_value
+print("====== Ex.6 =====")
+class ProductStock:
+    def __init__(self, name, quantity, price):
+        self.name = name
+        self.quantity = quantity
+        self.__price = price
+
+    @property
+    def price(self):
+        return self.__price
+    
+    @property
+    def inventory_value(self):
+        return self.__price * self.quantity
+    
+    @price.setter
+    def price(self, value):
+        if value > 0:
+            self.__price = value
+        else: print("Price should be more than 0")
+
+product1 = ProductStock("Pinata", 3, 10)
+print(f"The inventory value of '{product1.name}' is {product1.inventory_value}")
+product1.price = -1
+product1.price = 15
+print(f"The inventory value of '{product1.name}' is {product1.inventory_value}")
 
 # Ex.7
 
