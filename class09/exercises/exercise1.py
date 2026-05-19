@@ -194,3 +194,25 @@ print(f"The inventory value of '{product1.name}' is {product1.inventory_value}")
 # Requirements:
 #   property rating
 #   setter only accepts values between 0 and 10
+print("=== Ex.7 ===")
+class Movie:
+    def __init__(self, name, rating):
+        self.name = name
+        self.__rating = rating
+
+    @property
+    def rating(self):
+        return self.__rating
+    
+    @rating.setter
+    def rating(self, value):
+        if 0 <= value <= 10:
+            self.__rating = value
+        else: print("The rating could only be between 0 and 10")
+
+m1 = Movie("Interstellar", 6)
+print(f"The movie '{m1.name}' has rating: {m1.rating}.")
+m1.rating = 15
+m1.rating = -1
+m1.rating = 10
+print(f"The movie '{m1.name}' has rating: {m1.rating}.")
