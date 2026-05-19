@@ -38,6 +38,28 @@ print(f"{s1.name}'s gpa equals to {s1.gpa}")
 #   property price
 
 # setter must reject negative values
+print("=== Ex.2 ===")
+class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.__price = price
+
+    @property
+    def price(self):
+        return self.__price
+    
+    @price.setter
+    def price(self, value):
+        if value > 0:
+            self.__price = value
+        else: print("Price should be more than 0")
+
+product1 = Product("Apple", 5)
+print(product1.price)
+product1.price = -1
+product1.price = 3
+print(product1.price)
+
 
 # Ex.3 
 
@@ -48,6 +70,17 @@ print(f"{s1.name}'s gpa equals to {s1.gpa}")
 # a read-only property area
 
 # You should not store area directly; you should compute it.
+print("=== Ex.3 ===")
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+
+    @property
+    def area(self):
+        return self.radius * 3.14
+    
+c1 = Circle(3)
+print(c1.area)
 
 
 # Ex.4 
