@@ -90,6 +90,18 @@ print(c1.area)
 #   last_name
 # Requirements:
 #   read-only property full_name
+print("=== Ex.4 ===")
+class Person:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @property
+    def full_name(self):
+        return self.first_name + " " + self.last_name
+    
+p1 = Person("Sam", "Collins")
+print(p1.full_name)
 
 # Ex.5
 
