@@ -5,14 +5,8 @@ class CourseSection:
             self.title = title
         else:
             raise ValueError("The title shouldn't be empty.")
-        if(self.is_positive_number(capacity)):
-            self.__capacity = capacity
-        else:
-            raise ValueError("The capacity should be greater than 0")
-        if(enrolled >= 0):
-            self.__enrolled = enrolled
-        else:
-            raise ValueError("The enrolled number should be greater than or equal to 0.")
+        self.capacity = capacity
+        self.enrolled = enrolled
         print(f"Course section for '{self.title}' was successfully created.")
 
     @staticmethod

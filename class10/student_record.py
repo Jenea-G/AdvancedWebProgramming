@@ -4,14 +4,9 @@ class StudentRecord:
             self.name = name
         else:
             raise ValueError("You should provide a valid name")
-        if(self.is_gpa_valid(gpa)):
-           self.__gpa = gpa
-        else:
-            raise ValueError("The gpa should be between 0 and 4")
-        if(self.are_credits_valid(credits)):
-            self.__credits = credits
-        else:
-            raise ValueError("The value of credits should be a positive number")
+        self.gpa = gpa
+        self.credits = credits
+        print(f"The sudent {self.name} have been successfully recorded.")
 
     @staticmethod
     def is_valid(name):
