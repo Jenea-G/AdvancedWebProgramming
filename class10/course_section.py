@@ -1,12 +1,13 @@
 #  Create a class called: CourseSection
 class CourseSection:
-    def __init__(self, title, capacity, enrolled = 0):
+    def __init__(self, title, capacity, enrolled = 0, waitlist = 0):
         if(self.is_not_empty(title)):
             self.title = title
         else:
             raise ValueError("The title shouldn't be empty.")
         self.capacity = capacity
         self.enrolled = enrolled
+        self.waitlist = waitlist
         print(f"Course section for '{self.title}' was successfully created.")
 
     @staticmethod
@@ -40,17 +41,40 @@ class CourseSection:
 
     @enrolled.setter
     def enrolled(self, value):
-        if(value >= 0):
+        if(self.capacity >= value >= 0):
             self.__enrolled = value
         else:
-            raise ValueError("The enrolled number should be greater than or equal to 0.")
+            raise ValueError("The enrolled number should be greater than or equal to 0 and cannot exceed capacity.")
+        
+    @property
+    def waitlist(self):
+        return self.__waitlist
+    
+    @waitlist.setter
+    def waitlist(self, value):
+        if(value >= 0):
+            self.__waitlist = value
+        else:
+            raise ValueError("The waitlist value should be greater than or equal to 0.")
+        
+    def add_to_waitlist(self):
+        self.waitlist += 1
+        print("A student have been successfully added to the waitlist")
+
+    def remove_from_waitlist(self):
+        if(self.waitlist > 0):
+            self.waitlist -= 1
+            print(f"The student have been successfully removed from waitlist for {self.title} course.")
+        else:
+            raise ValueError("There are no students in waitlist")
         
     def register_student(self):
         if(self.capacity > self.enrolled):
             self.enrolled += 1
             print(f"You have successfully enrolled to the {self.title} course.")
         else:
-            raise ValueError("The maximum course capacity have been reached. You cannot enroll to this course.")
+            self.add_to_waitlist()
+            print("The maximum course capacity have been reached. You were added to waitlist.")
         
     def drop_student(self):
         if(self.enrolled > 0):
@@ -60,6 +84,6 @@ class CourseSection:
             raise ValueError("You cannot drop. There are no sutdents enrolled to the course.")
         
     def display_info(self):
-        print(f"The {self.title} course has the maximum capacity of {self.capacity}, and {self.enrolled} students are currently enrolled")
+        print(f"The {self.title} course has the maximum capacity of {self.capacity}, and {self.enrolled} students are currently enrolled. {self.waitlist} students are in the waitlist.")
 
     

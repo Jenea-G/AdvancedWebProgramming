@@ -94,3 +94,32 @@ s3 = StudentRecord("Sam", 1, 10)
 print(s1.academic_status)
 print(s2.academic_status)
 print(s3.academic_status)
+
+
+print("====== Challenge 2 'Waitlist' property tests ======= ")
+try:
+    cs3 = CourseSection("Website creation", 10, 0, -1)
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    cs3 = CourseSection("Website creation", 10, 10)
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    cs1.remove_from_waitlist()
+except ValueError as e:
+    print("Error:", e)
+
+cs3.display_info()
+cs3.register_student()
+cs3.display_info()
+cs3.add_to_waitlist()
+cs3.add_to_waitlist()
+cs3.display_info()
+
+try:
+    cs3.remove_from_waitlist()
+except ValueError as e:
+    print("Error:", e)
