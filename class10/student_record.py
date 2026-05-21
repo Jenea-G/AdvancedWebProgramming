@@ -2,10 +2,16 @@ class StudentRecord:
     def __init__(self, name, gpa, credits):
         if (self.is_valid(name)):
             self.name = name
+        else:
+            raise ValueError("You should provide a valid name")
         if(self.is_gpa_valid(gpa)):
            self.__gpa = gpa
+        else:
+            raise ValueError("The gpa should be between 0 and 4")
         if(self.are_credits_valid(credits)):
             self.__credits = credits
+        else:
+            raise ValueError("The value of credits should be a positive number")
 
     @staticmethod
     def is_valid(name):
@@ -36,7 +42,8 @@ class StudentRecord:
     def gpa(self, value):
         if(self.is_gpa_valid(value)):
             self.__gpa = value
-        else: print("The value of gpa must be between 0 and 4")
+        else:
+            raise ValueError("The value of gpa must be between 0 and 4")
 
     @gpa.getter
     def gpa(self):
@@ -50,7 +57,8 @@ class StudentRecord:
     def credits(self, value):
         if(self.are_credits_valid(value)):
             self.__credits = value
-        else: print("Credits must always be greater than or equal to 0")
+        else:
+            raise ValueError("Credits must always be greater than or equal to 0")
 
     @credits.getter
     def credits(self):
@@ -59,7 +67,8 @@ class StudentRecord:
     def add_credits(self, amount):
         if(amount > 0):
             self.__credits += amount
-        else: print("Only a positive amount can be added")
+        else:
+            raise ValueError("Only a positive amount can be added")
 
     def update_gpa(self, value):
         self.gpa = value
