@@ -4,7 +4,7 @@ class StudentRecord:
             self.name = name
         if(self.is_gpa_valid(gpa)):
            self.__gpa = gpa
-        if(self.is_credits_valid(credits)):
+        if(self.are_credits_valid(credits)):
             self.__credits = credits
 
     @staticmethod
@@ -22,9 +22,51 @@ class StudentRecord:
             return False
     
     @staticmethod
-    def is_credits_valid(gpa):
-        if(credits > 0):
+    def are_credits_valid(credits):
+        if(credits >= 0):
             return True
         else:
             return False
+        
+    @property
+    def gpa(self):
+        return self.__gpa
+    
+    @gpa.setter
+    def gpa(self, value):
+        if(self.is_gpa_valid(value)):
+            self.__gpa = value
+        else: print("The value of gpa must be between 0 and 4")
+
+    @gpa.getter
+    def gpa(self):
+        return self.__gpa
+    
+    @property
+    def credits(self):
+        return self.__credits
+    
+    @credits.setter
+    def credits(self, value):
+        if(self.are_credits_valid(value)):
+            self.__credits = value
+        else: print("Credits must always be greater than or equal to 0")
+
+    @credits.getter
+    def credits(self):
+        return self.__credits
+
+    def add_credits(self, amount):
+        if(amount > 0):
+            self.__credits += amount
+        else: print("Only a positive amount can be added")
+
+    def update_gpa(self, value):
+        self.gpa = value
+
+    def display_info(self):
+        print(f"Student {self.name} has the gpa: {self.gpa} and {self.credits} credits.")
+
+    
+
     
