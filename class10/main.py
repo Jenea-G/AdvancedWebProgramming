@@ -59,4 +59,32 @@ try:
 except ValueError as e:
     print("Error:", e) 
 
+try:
+    cs2 = CourseSection("CMS", 15, 14)
+except ValueError as e:
+    print("Error:", e)
 
+cs1.display_info()
+cs2.display_info()
+
+try:
+    cs1.drop_student()
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    cs2.capacity = 0
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    cs2.register_student()
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    cs2.register_student()
+except ValueError as e:
+    print("Error:", e)
+    
+cs2.display_info()
