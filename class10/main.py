@@ -86,5 +86,11 @@ try:
     cs2.register_student()
 except ValueError as e:
     print("Error:", e)
-    
+
 cs2.display_info()
+print(s1.credits)
+
+s3 = StudentRecord("Sam", 1, 10)
+print(s1.academic_status)
+print(s2.academic_status)
+print(s3.academic_status)

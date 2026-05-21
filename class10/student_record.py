@@ -39,11 +39,7 @@ class StudentRecord:
             self.__gpa = value
         else:
             raise ValueError("The value of gpa must be between 0 and 4")
-
-    @gpa.getter
-    def gpa(self):
-        return self.__gpa
-    
+  
     @property
     def credits(self):
         return self.__credits
@@ -54,10 +50,15 @@ class StudentRecord:
             self.__credits = value
         else:
             raise ValueError("Credits must always be greater than or equal to 0")
-
-    @credits.getter
-    def credits(self):
-        return self.__credits
+        
+    @property
+    def academic_status(self):
+        if(self.gpa >= 3.5):
+            return "Honours"
+        if(self.gpa >= 2.0):
+            return "Good Standing"
+        else:
+            return "At Risk"
 
     def add_credits(self, amount):
         if(amount > 0):
