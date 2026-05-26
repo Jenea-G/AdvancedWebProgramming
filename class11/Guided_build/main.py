@@ -10,9 +10,13 @@ course2.display_info()
 
 course1.close_registration()
 course1.display_info()
-
-course2.reopen_course()
+print("========")
+try:
+    course2.reopen_course()
+except ValueError as e:
+    print("Error:", e)
 course2.display_info()
+print("========")
 
 try:
     course3 = Course("Testing techinques", 20, "open", DeliveryMode.HYBRID)
@@ -54,3 +58,13 @@ except ValueError as e:
     print("Error:", e)
 
 course5.display_info()
+
+print("===== Test reopen_course method validation ===== ")
+course2.cancel_course()
+course2.display_info()
+
+try:
+    course2.reopen_course()
+
+except ValueError as e:
+    print("Error:", e)

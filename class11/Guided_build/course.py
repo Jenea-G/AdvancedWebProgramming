@@ -43,7 +43,10 @@ class Course:
         self.status = CourseStatus.CANCELLED
     
     def reopen_course(self):
-        self.status = CourseStatus.OPEN
+        if (self.status == CourseStatus.CLOSED):
+            self.status = CourseStatus.OPEN
+        else:
+            raise ValueError("Only closed courses could be reopened")
 
     @staticmethod
     def is_capacity_valid(value):
