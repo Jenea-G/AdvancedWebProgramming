@@ -71,3 +71,22 @@ except ValueError as e:
 
 print(course2.is_open_for_registration())
 print(course5.is_open_for_registration())
+
+print("=== challenge 4 ===")
+try:
+    bad_course = Course("Bad Course", 20, "open", "online")
+    bad_course.display_info()
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    bad_course = Course("Bad Course", 20, CourseStatus.OPEN, "online")
+    bad_course.display_info()
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    bad_course = Course("Not that bad Course", 20, CourseStatus.OPEN, DeliveryMode.IN_PERSON)
+    bad_course.display_info()
+except ValueError as e:
+    print("Error:", e)
