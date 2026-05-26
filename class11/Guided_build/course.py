@@ -53,4 +53,9 @@ class Course:
         if (0 < value <= MAX_CAPACITY):
             return True
         return False
+    
+    def is_open_for_registration(self):
+        if (self.status == CourseStatus.OPEN):
+            return True
+        return False
 

@@ -68,3 +68,6 @@ try:
 
 except ValueError as e:
     print("Error:", e)
+
+print(course2.is_open_for_registration())
+print(course5.is_open_for_registration())
