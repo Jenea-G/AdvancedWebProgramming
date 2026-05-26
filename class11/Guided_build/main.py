@@ -24,3 +24,20 @@ except ValueError as e:
     print("Error:", e)
 
 course3.display_info()
+
+try:
+    course4 = Course("Testing techinques - 3", 61, CourseStatus.OPEN)
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    course4 = Course("Testing techinques - 3", 0, CourseStatus.OPEN)
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    course4 = Course("Valid capacity", 18, CourseStatus.OPEN)
+except ValueError as e:
+    print("Error:", e)
+
+course4.display_info()

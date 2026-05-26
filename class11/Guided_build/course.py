@@ -1,11 +1,14 @@
 from status import CourseStatus
 
-class Course:
-    def __init__(self, title, capacity, status):
+MAX_CAPACITY = 60
 
-        
+class Course:
+    def __init__(self, title, capacity, status): 
+        if (self.is_capacity_valid(capacity)):
+            self.capacity = capacity
+        else:
+            raise ValueError(f"capacity should be greater than 0 and not exeed {MAX_CAPACITY}")
         self.title = title
-        self.capacity = capacity
         self.status = status
 
     @property
@@ -29,4 +32,10 @@ class Course:
     
     def reopen_course(self):
         self.status = CourseStatus.OPEN
+
+    @staticmethod
+    def is_capacity_valid(value):
+        if (0 < value <= MAX_CAPACITY):
+            return True
+        return False
 
