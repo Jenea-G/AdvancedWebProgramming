@@ -1,14 +1,14 @@
 from status import CourseStatus
 from delivery import DeliveryMode
 
-MAX_CAPACITY = 60
-
 class Course:
+    MAX_CAPACITY = 60
+
     def __init__(self, title, capacity, status, delivery): 
         if (self.is_capacity_valid(capacity)):
             self.capacity = capacity
         else:
-            raise ValueError(f"capacity should be greater than 0 and not exeed {MAX_CAPACITY}")
+            raise ValueError(f"capacity should be greater than 0 and not exeed {self.MAX_CAPACITY}")
         self.title = title
         self.status = status
         self.delivery = delivery
@@ -48,9 +48,9 @@ class Course:
         else:
             raise ValueError("Only closed courses could be reopened")
 
-    @staticmethod
-    def is_capacity_valid(value):
-        if (0 < value <= MAX_CAPACITY):
+    @classmethod
+    def is_capacity_valid(cls, value):
+        if (0 < value <= cls.MAX_CAPACITY):
             return True
         return False
     
