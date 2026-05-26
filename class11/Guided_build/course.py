@@ -1,15 +1,17 @@
 from status import CourseStatus
+from delivery import DeliveryMode
 
 MAX_CAPACITY = 60
 
 class Course:
-    def __init__(self, title, capacity, status): 
+    def __init__(self, title, capacity, status, delivery): 
         if (self.is_capacity_valid(capacity)):
             self.capacity = capacity
         else:
             raise ValueError(f"capacity should be greater than 0 and not exeed {MAX_CAPACITY}")
         self.title = title
         self.status = status
+        self.delivery = delivery
 
     @property
     def status(self):
@@ -20,9 +22,19 @@ class Course:
         if not isinstance(value, CourseStatus):
             raise ValueError("status must be a CourseStatus value")
         self.__status = value
+    
+    @property
+    def delivery(self):
+        return self.__delivery
+    
+    @delivery.setter
+    def delivery(self, value):
+        if not isinstance(value, DeliveryMode):
+            raise ValueError("Delivery mode must be a DeliveryMode enum value")
+        self.__delivery = value
 
     def display_info(self):
-        print(f"{self.title} | Capacity: {self.capacity} | Status: {self.status.value}")
+        print(f"{self.title} | Capacity: {self.capacity} | Status: {self.status.value} | Delivery mode: {self.delivery.value}")
 
     def close_registration(self):
         self.status = CourseStatus.CLOSED
