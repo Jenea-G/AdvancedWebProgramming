@@ -80,6 +80,7 @@ print(status.value)
 
 class User:
     def __init__(self, username):
+        print("hello from parent constructor")
         self.username = username
     
     def introduce(self):
@@ -89,8 +90,29 @@ class StudentUser(User): # extending the User class
     def __init__(self, username, program):
         super().__init__(username) # super means go to the parent class
                                     # and in here we refer to the parent class' constructor
+                                    # hello message will print here as we are executing the parent constructor here
         self.program = program
 
 student1 = StudentUser("Jane", "Web Dev")
 student1.introduce() # studentUser uses the function from the parent class
 print(student1.program)
+
+class AdminUser(User):
+    def __init__(self, username, dpt):
+        super().__init__(username)
+        self.dpt = dpt
+
+admin1 = AdminUser("John", "Accounting")
+admin1.introduce()
+print(admin1.dpt)
+
+# StudentUser(User): this basically means StudentUser inherits from User
+# StudentUser gets access to inherited methods like introduce()
+# super().__init__(name) calls parent
+    # super is very important. because without the parent setup might not happen!
+    # double important when the parent constructor initializes important shared data.
+
+
+# The difference between abstract classes and inheritance:
+#   abstract classes define strict rules on what functions need to be implemented by the class.
+#   inheritance allows one Parent class to pass down functions and attributes to a child class.
