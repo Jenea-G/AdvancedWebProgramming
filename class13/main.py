@@ -210,3 +210,9 @@ notifications = [EmailNotification(), SmsNotification(), FaxNotification(), Noti
 
 for notification in notifications:
     notification.send("Hello") # polymorphism!
+
+
+
+# Polymorphism linguistically means : many forms (from Greek)
+#   refers (soft. dev) to the ability of different data types, objects, or functions to share the same interface.
+#   it allows a single symbol or method to behave differently, depending on the context!
