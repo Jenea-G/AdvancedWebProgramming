@@ -116,3 +116,97 @@ print(admin1.dpt)
 # The difference between abstract classes and inheritance:
 #   abstract classes define strict rules on what functions need to be implemented by the class.
 #   inheritance allows one Parent class to pass down functions and attributes to a child class.
+
+# ====================
+
+# Method overrideing
+
+# a child class can replace or customize inherited behaviour --> this is called overriding.
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+    def introduce(self):
+        print(f"Hello, my name is {self.name}")
+
+class Employee(Person):
+    def __init__(self, name, dpt):
+        super().__init__(name)
+        self.dpt = dpt
+
+    def introduce(self):
+        print(f"Hello, my name is {self.name} and I work at the {self.dpt}")
+
+person = Person("John")
+employee = Employee("Jane", "Software Development")
+
+person.introduce()
+employee.introduce()
+
+# both classes have an introduce() method, but the child version replaces the parent version
+# for employee objects.
+
+class Admin(Person):
+    def __init__(self, name, dpt):
+        super().__init__(name)
+        self.dpt = dpt
+
+    # we override and use the parent method
+    def introduce(self):
+        super().introduce() # first execute parent method
+        print(f"I oversee the {self.dpt} departement") # then add the overriden stuff
+
+admin = Admin("Alice", "Software Development")
+admin.introduce()
+
+# super() means go to the parent class!
+
+# ======= POLYMORPHISM =======
+
+# Polymorphism means different objects can respond to the same method call in their own way
+
+class Teacher(Person):
+    def __init__(self, name, subject):
+        super().__init__(name)
+        self.subject = subject
+
+    def introduce(self):
+        print(f"Hello, my name is {self.name} and i teach {self.subject}")
+
+people = [
+    Person("Nadia"),
+    Employee("Ahmed", "Accounting"),
+    Admin("Janice", "HR"),
+    Teacher("Mr A", "Mathematics")
+]
+
+for person in people:
+    person.introduce()
+
+# the idea of polymorphism is that the same method works on all objects, but each object responds differently
+
+# another exmple:
+print()
+print("============")
+
+class Notification:
+    def send(self, message):
+        print(f"Generic notification: {message}")
+
+class EmailNotification(Notification):
+    def send(self, message):
+        print(f"Sending email: {message}")
+
+class FaxNotification(Notification):
+    def send(self, message):
+        super().send(message)
+        print("via Fax")
+
+class SmsNotification(Notification):
+    def send(self, message):
+        print(f"Sending SMS: {message}")
+
+notifications = [EmailNotification(), SmsNotification(), FaxNotification(), Notification()]
+
+for notification in notifications:
+    notification.send("Hello") # polymorphism!
