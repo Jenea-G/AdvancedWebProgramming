@@ -137,8 +137,8 @@ class Product:
     
     @price.setter
     def price(self, value):
-        if value < 0:
-            raise NegativePriceError("The price cannot be negative")
+        if value <= 0:
+            raise NegativePriceError("The price cannot be negative or equal to 0")
         self.__price = value
 
     def setPrice(self, value):
@@ -159,7 +159,7 @@ else:
     print(f"The product {p2.name} was successfully added")
 
 try:
-    p2.setPrice(60)
+    p2.setPrice(0)
 except NegativePriceError as error:
     print(error)
 else:
