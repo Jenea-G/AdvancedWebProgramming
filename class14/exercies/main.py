@@ -49,7 +49,7 @@ class Account:
         if amount < 0:
             raise NegativeWithdrawalError("The amount to withdraw should be a positive number")
         if amount > self.balance:
-            raise InsufficientFundslError("There are not enough money on your account.")
+            raise InsufficientFundslError("There is not enough money on your account.")
         self.balance -= amount
 
 try:

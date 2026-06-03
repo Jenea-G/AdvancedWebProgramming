@@ -105,7 +105,7 @@ finally: # finally do this (regardless of what happened)
 
 # Programs should raise exceptions when they detect invalid situations. When that happens, we use raise.
 
-def set_age(afe):
+def set_age(age):
     if age < 0:
         raise ValueError("Age cannot be negative")
     return age
