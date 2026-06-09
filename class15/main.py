@@ -7,6 +7,7 @@ class ShowStatus(Enum):
     CANCELLED = "Cancelled"
 
 from user import User
+from customer import Customer
 
 try:
     u1 = User("", "user1@mail.com")
@@ -17,5 +18,17 @@ except ValueError as e:
 try:
     u2 = User("Minnie", "minnie@mail.com")
     u2.display_info()
+except ValueError as e:
+    print(e)
+
+try:
+    c1 = Customer("Lily", "lily@mail.com", 0)
+    c1.display_info()
+except ValueError as e:
+    print(e)
+
+try:
+    c2 = Customer("Lily", "lily2@mail.com", 1)
+    c2.display_info()
 except ValueError as e:
     print(e)

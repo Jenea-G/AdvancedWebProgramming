@@ -6,6 +6,6 @@ class User:
         self.email = email
 
     def display_info(self):
-        print(f"User's name: {self.name}. Email: {self.email}")
+        print(f"Name: {self.name}. Email: {self.email}")
 
     
