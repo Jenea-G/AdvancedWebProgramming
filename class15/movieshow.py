@@ -27,7 +27,7 @@ class MovieShow:
     
     @title.setter
     def title(self, value):
-        if Helper.isValidName(value):
+        if Helper.isValidString(value):
             self.__title = value
         else:
             raise ValueError("Title cannot be empty")

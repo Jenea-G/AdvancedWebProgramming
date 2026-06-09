@@ -1,6 +1,6 @@
 class Helper:
     @staticmethod
-    def isValidName(value):
+    def isValidString(value):
         if(len(value.strip()) > 0):
             return True
         return False
