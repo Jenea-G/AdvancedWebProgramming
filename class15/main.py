@@ -1,9 +1,7 @@
-MAX_TICKETS_PER_BOOKING = 3
-
 from user import User
 from customer import Customer
 from employee import Employee
-from movieshow import MovieShow, ShowStatus
+from movieshow import MovieShow, ShowStatus, BookingError
 
 try:
     u1 = User("", "user1@mail.com")
@@ -61,3 +59,31 @@ try:
     m1 = MovieShow("Interstellar", 100, 0, ShowStatus.OPEN)
 except ValueError as e:
     print(e)
+
+print("==== test booking ====")
+try:
+    m1.book_tickets(c2, 10)
+except BookingError as error:
+    print(error)
+
+try:
+    m1.book_tickets(c2, 5)
+except BookingError as error:
+    print(error)
+
+m1.booked_seats = 96
+
+try:
+    m1.book_tickets(c2, 7)
+except BookingError as error:
+    print(error)
+
+try:
+    m1.book_tickets(c2, 4)
+except BookingError as error:
+    print(error)
+
+try:
+    m1.book_tickets(c2, 4)
+except BookingError as error:
+    print(error)

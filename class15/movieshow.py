@@ -6,7 +6,11 @@ class ShowStatus(Enum):
     SOLD_OUT = "Sold out"
     CANCELLED = "Cancelled"
 
+class BookingError(Exception):
+    pass
 class MovieShow:
+    MAX_TICKETS_PER_BOOKING = 7
+
     def __init__(self, title, capacity, booked_seats, status):
         self.title = title
         self.capacity = capacity
@@ -56,3 +60,18 @@ class MovieShow:
         if not isinstance(value, ShowStatus):
             raise ValueError("status must be a ShowStatus value")
         self.__status = value
+
+    def book_tickets(self, customer, quantity):
+        if self.status != ShowStatus.OPEN:
+            raise BookingError("You cannot book tickets for the show, It is sold out or cancelled")
+        if  0 >= quantity or quantity > self.MAX_TICKETS_PER_BOOKING :
+            raise BookingError(f"The quantity should be greater than 0 and cannot exceed the maximum booking per customer: {self.MAX_TICKETS_PER_BOOKING}")
+        if (self.capacity - self.booked_seats - quantity) < 0:
+            raise BookingError(f"There are only {self.capacity - self.booked_seats} seats left.")
+
+        self.booked_seats += quantity
+        if self.capacity == self.booked_seats:
+            self.status = ShowStatus.SOLD_OUT
+
+        print(f"{customer.name} has successfully booked {quantity} tickets for '{self.title}")
+
