@@ -17,6 +17,4 @@ class Customer(User):
             raise ValueError("Customer id should be a positive number")
         
     def display_info(self):
-        print("Customer's info: ")
-        super().display_info()
-        print(f"Customer id: {self.customer_id}")
+        print(f"Customer's info: Name: {self.name}. Email: {self.email}. Customer id: {self.customer_id}")

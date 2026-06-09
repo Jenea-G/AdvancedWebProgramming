@@ -8,6 +8,7 @@ class ShowStatus(Enum):
 
 from user import User
 from customer import Customer
+from employee import Employee
 
 try:
     u1 = User("", "user1@mail.com")
@@ -30,5 +31,17 @@ except ValueError as e:
 try:
     c2 = Customer("Lily", "lily2@mail.com", 1)
     c2.display_info()
+except ValueError as e:
+    print(e)
+
+try:
+    e1 = Employee("Tom", "tom@mail.com", -3)
+    e1.display_info()
+except ValueError as e:
+    print(e)
+
+try:
+    e2 = Employee("Tom", "tom2@mail.com", 1)
+    e2.display_info()
 except ValueError as e:
     print(e)
