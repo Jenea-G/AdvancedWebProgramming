@@ -11,7 +11,8 @@ class MovieShow:
         self.title = title
         self.capacity = capacity
         self.booked_seats = booked_seats
-        self.status = self.status
+        self.status = status
+        print("Movie show has been created")
 
     @property
     def title(self):
@@ -41,7 +42,7 @@ class MovieShow:
     
     @booked_seats.setter
     def booked_seats(self, value):
-        if Helper.isPositiveNumber and value >= self.capacity:
+        if Helper.isPositiveNumber(value) and value <= self.capacity:
             self.__booked_seats = value
         else:
             raise ValueError("Booked seats cannot be negative and cannot exceed capacity")
