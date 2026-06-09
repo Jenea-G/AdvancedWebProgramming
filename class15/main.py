@@ -110,3 +110,13 @@ except InvalidStatusError as e:
 
 m2.cancels_show()
 m2.display_info()
+
+print("Polymorphism")
+list = [Customer("Ann", "ann@gmail.com", 2),
+        Employee("Peter", "pete@mail.com", 4 ),
+        User("Cat", "cat@mail.com"),
+        MovieShow("Her", 150, 20, ShowStatus.OPEN)
+]
+
+for item in list:
+    item.display_info()
