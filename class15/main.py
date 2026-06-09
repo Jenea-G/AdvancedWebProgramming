@@ -99,7 +99,7 @@ except BookingError as error:
 
 m1.display_info()
 
-print("=== test cancel show === ")
+print("=== Test cancel show === ")
 try:
     m2 = MovieShow("Duna", 200, 0, ShowStatus.OPEN)
     m2.display_info()
@@ -111,7 +111,12 @@ except InvalidStatusError as e:
 m2.cancels_show()
 m2.display_info()
 
-print("Polymorphism")
+try:
+    m2.book_tickets(c2, 1)
+except BookingError as e:
+    print(e)
+
+print("==== Polymorphism ====")
 list = [Customer("Ann", "ann@gmail.com", 2),
         Employee("Peter", "pete@mail.com", 4 ),
         User("Cat", "cat@mail.com"),

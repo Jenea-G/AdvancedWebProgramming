@@ -65,8 +65,10 @@ class MovieShow:
         self.__status = value
 
     def book_tickets(self, customer, quantity):
-        if self.status != ShowStatus.OPEN:
-            raise BookingError("You cannot book tickets for the show, It is sold out or cancelled")
+        if self.status == ShowStatus.CANCELLED:
+            raise BookingError("You cannot book tickets. The show is cancelled")
+        if self.status == ShowStatus.SOLD_OUT:
+            raise BookingError("The tickets are already sold out")
         if  0 >= quantity or quantity > self.MAX_TICKETS_PER_BOOKING :
             raise BookingError(f"The quantity should be greater than 0 and cannot exceed the maximum booking per customer: {self.MAX_TICKETS_PER_BOOKING}")
         if (self.remaining_seats - quantity) < 0:
