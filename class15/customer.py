@@ -18,3 +18,13 @@ class Customer(User):
         
     def display_info(self):
         print(f"Customer's info: Name: {self.name}. Email: {self.email}. Customer id: {self.customer_id}")
+
+class VIPCustomer(Customer):
+    status = "VIP"
+
+    def __init__(self, name, email, customer_id):
+        super().__init__(name, email, customer_id)
+
+    def display_info(self):
+        super().display_info()
+        print(f"{self.name} is a {self.status} customer.")

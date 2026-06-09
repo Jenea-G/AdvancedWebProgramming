@@ -1,5 +1,5 @@
 from user import User
-from customer import Customer
+from customer import Customer, VIPCustomer
 from employee import Employee
 from movieshow import MovieShow, ShowStatus, BookingError, InvalidStatusError
 
@@ -120,8 +120,29 @@ print("==== Polymorphism ====")
 list = [Customer("Ann", "ann@gmail.com", 2),
         Employee("Peter", "pete@mail.com", 4 ),
         User("Cat", "cat@mail.com"),
+        VIPCustomer("Dog", "dog@email.com", 9),
         MovieShow("Her", 150, 20, ShowStatus.OPEN)
 ]
 
 for item in list:
     item.display_info()
+
+print("==== VIP customer testing ====")
+
+try:
+    custom1 = VIPCustomer("s", "b", 0)
+    custom1.display_info()
+except ValueError as e:
+    print(e)
+
+try:
+    custom2 = VIPCustomer("one", "", 5)
+    custom2.display_info()
+except ValueError as e:
+    print(e)
+
+try:
+    customervip = VIPCustomer("One", "one@email.com", 5)
+    customervip.display_info()
+except ValueError as e:
+    print(e)
