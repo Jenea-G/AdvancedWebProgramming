@@ -71,6 +71,7 @@ try:
 except BookingError as error:
     print(error)
 
+m1.display_info()
 m1.booked_seats = 96
 
 try:
@@ -87,3 +88,15 @@ try:
     m1.book_tickets(c2, 4)
 except BookingError as error:
     print(error)
+
+m1.display_info()
+
+print("=== test cancel show === ")
+try:
+    m2 = MovieShow("Duna", 200, 0, ShowStatus.OPEN)
+    m2.display_info()
+except ValueError as e:
+    print(e)
+
+m2.cancels_show()
+m2.display_info()
