@@ -66,19 +66,19 @@ class MovieShow:
 
     def book_tickets(self, customer, quantity):
         if self.status == ShowStatus.CANCELLED:
-            raise BookingError("You cannot book tickets. The show is cancelled")
+            raise BookingError("You cannot book tickets. The show is cancelled.")
         if self.status == ShowStatus.SOLD_OUT:
-            raise BookingError("The tickets are already sold out")
+            raise BookingError("The tickets are already sold out.")
         if  0 >= quantity or quantity > self.MAX_TICKETS_PER_BOOKING :
             raise BookingError(f"The quantity should be greater than 0 and cannot exceed the maximum booking per customer: {self.MAX_TICKETS_PER_BOOKING}")
         if (self.remaining_seats - quantity) < 0:
             raise BookingError(f"There are only {self.remaining_seats} seats left.")
 
         self.booked_seats += quantity
-        if self.capacity == self.booked_seats:
+        if self.is_full:
             self.status = ShowStatus.SOLD_OUT
 
-        print(f"{customer.name} has successfully booked {quantity} tickets for '{self.title}")
+        print(f"{customer.name} has successfully booked {quantity} tickets for '{self.title}'.")
 
     def cancels_show(self):
         self.status = ShowStatus.CANCELLED
@@ -89,3 +89,9 @@ class MovieShow:
     @property
     def remaining_seats(self):
         return self.capacity - self.booked_seats
+    
+    @property
+    def is_full(self):
+        if self.remaining_seats == 0:
+            return True
+        return False
