@@ -1,7 +1,7 @@
 from user import User
 from customer import Customer
 from employee import Employee
-from movieshow import MovieShow, ShowStatus, BookingError
+from movieshow import MovieShow, ShowStatus, BookingError, InvalidStatusError
 
 try:
     u1 = User("", "user1@mail.com")
@@ -44,20 +44,28 @@ try:
     m1 = MovieShow("  ", 1, 0, ShowStatus.OPEN)
 except ValueError as e:
     print(e)
+except InvalidStatusError as e:
+    print(e)
 
 try:
     m1 = MovieShow("Interstellar", 0, 0, "something")
 except ValueError as e:
+    print(e)
+except InvalidStatusError as e:
     print(e)
 
 try:
     m1 = MovieShow("Interstellar", 100, 0, "something")
 except ValueError as e:
     print(e)
+except InvalidStatusError as e:
+    print(e)
 
 try:
     m1 = MovieShow("Interstellar", 100, 0, ShowStatus.OPEN)
 except ValueError as e:
+    print(e)
+except InvalidStatusError as e:
     print(e)
 
 print("==== test booking ====")
@@ -96,6 +104,8 @@ try:
     m2 = MovieShow("Duna", 200, 0, ShowStatus.OPEN)
     m2.display_info()
 except ValueError as e:
+    print(e)
+except InvalidStatusError as e:
     print(e)
 
 m2.cancels_show()

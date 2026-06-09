@@ -8,6 +8,9 @@ class ShowStatus(Enum):
 
 class BookingError(Exception):
     pass
+
+class InvalidStatusError(Exception):
+    pass
 class MovieShow:
     MAX_TICKETS_PER_BOOKING = 7
 
@@ -58,7 +61,7 @@ class MovieShow:
     @status.setter
     def status(self, value):
         if not isinstance(value, ShowStatus):
-            raise ValueError("status must be a ShowStatus value")
+            raise InvalidStatusError("status must be a ShowStatus value")
         self.__status = value
 
     def book_tickets(self, customer, quantity):
