@@ -4,6 +4,7 @@ from core.exceptions import InvalidBookingError
 from models.customer import Customer
 from models.movie_show import MovieShow
 from models.staff import Staff
+from utils import separator
 
 def main():
     customer = Customer("Ava")
@@ -13,6 +14,10 @@ def main():
     customer.display_info()
     show.display_info()
     print("Max tickets per booking:", MAX_TICKETS_PER_BOOKING)
+
+    separator()
+    print("Challenges")
+    separator()
     employee.display_info()
 
 if __name__ == "__main__":
