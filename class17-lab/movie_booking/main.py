@@ -4,6 +4,7 @@ from core.exceptions import InvalidBookingError
 from models.customer import Customer
 from models.movie_show import MovieShow
 from models.staff import Staff
+from models.vip_customer import VipCustomer
 from utils import separator, display
 
 def main():
@@ -22,7 +23,7 @@ def main():
 
     separator()
     objects = [
-        Customer("My customer"), MovieShow("The movie", 15, ShowStatus.OPEN), Staff("Lily", "Operator")
+        Customer("My customer"), MovieShow("The movie", 15, ShowStatus.OPEN), Staff("Lily", "Operator"), VipCustomer("Thomas", 0.2)
     ]
     display(objects)
 
