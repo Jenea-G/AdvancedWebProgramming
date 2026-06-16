@@ -4,12 +4,11 @@ from core.exceptions import InvalidBookingError
 from models.customer import Customer
 from models.movie_show import MovieShow
 from models.staff import Staff
-from utils import separator
+from utils import separator, display
 
 def main():
     customer = Customer("Ava")
     show = MovieShow("Inception", 20, ShowStatus.OPEN)
-    employee = Staff("Kevin", "Technician")
 
     customer.display_info()
     show.display_info()
@@ -18,7 +17,14 @@ def main():
     separator()
     print("Challenges")
     separator()
+    employee = Staff("Kevin", "Technician")
     employee.display_info()
+
+    separator()
+    objects = [
+        Customer("My customer"), MovieShow("The movie", 15, ShowStatus.OPEN), Staff("Lily", "Operator")
+    ]
+    display(objects)
 
 if __name__ == "__main__":
     main()
