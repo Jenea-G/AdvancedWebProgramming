@@ -17,4 +17,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    # render_template tells flask to render an HTML template
     return render_template("home.html", title="welcome", message="hello from flask templates!")
+# ^^^^^^^^ title and message are passed from Python into the template
+# inside the HTML file {{ variable_name }}
+
+@app.route("/games")
+def games():
+    games_list = ["Street fighter", "Tetris", "Pac-Man", "Fire and Water"]
+    return render_template("games.html", games=games_list)
