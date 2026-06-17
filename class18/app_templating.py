@@ -11,7 +11,7 @@
 #   2. loops and conditionals
 #   2. separation between Python logic and page structuere.
 
-from flask import Flask, render_template #import render_template
+from flask import Flask, render_template, request #import render_template
 
 app = Flask(__name__)
 
@@ -26,3 +26,19 @@ def home():
 def games():
     games_list = ["Street fighter", "Tetris", "Pac-Man", "Fire and Water"]
     return render_template("games.html", games=games_list)
+
+# ===============================
+# looking at request data
+
+@app.route("/greet")
+def greet():
+    # flask can read name from the request (.../greet?name=Jane)
+    name = request.args.get("name", "Guest")
+    return f"<h1>Hello, {name} </h1>"
+
+@app.route("/welcome")
+def welcome():
+    # two arguments: ../welcome?name=Jane&program=Web%20Development
+    name = request.args.get("name", "Guest")
+    program = request.args.get("program", "Unknown")
+    return f"<h1>{name} studies in the {program} program.</h1>" # Jane studies in the Web Development program.
