@@ -24,9 +24,10 @@ def games():
 
 @app.route("/students")
 def students():
-    return "<h1>Students List</h1>" \
-    "<ul>" \
-    "<li>Ann</li>" \
-    "<li>Bob</li>" \
-    "<li>Cathy</li>" \
-    "</ul"
+    return """<h1>Students List</h1>
+              <ul>
+              <li>Ann</li>
+              <li>Bob</li>
+              <li>Cathy</li>
+              </ul
+           """
