@@ -20,5 +20,3 @@ def about():
 # the routes are our backend entry points!
 # templates are redered by Flask!
 # query parameters let the broweser send lightweight input!
-
-# 
