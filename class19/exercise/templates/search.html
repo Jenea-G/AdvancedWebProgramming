@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Movies Search</h1>
+
+    <h2>Filter by genre</h2>
+
+    <p>
+        <a href="/search">All Movies</a>
+        <a href="/search?genre=Sci-Fi">genre Sci-Fi</a>
+        <a href="/search?genre=Animation">genre Animation</a>
+        <a href="/search?genre=Drama">genre Drama</a>
+        <a href="/search?genre=Thriller">genre Thriller</a>
+    </p>
+
+    {% if genre %}
+    <p>Showing movies in <b>genre {{genre}}</b></p>
+    {% else %}
+    <p>Showing all movies</p>
+    {% endif %}
+
+    <ul>
+        {% for movie in movies %}
+        <li>{{movie.title}} - {{movie.year}} (genre {{movie.genre}})</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
