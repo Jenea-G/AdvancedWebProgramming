@@ -1,0 +1,26 @@
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(53, 53, 53);
+}
+
+a {
+    color: black;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 3px 10px;
+    margin-right: 7px;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+nav a {
+    padding: 6px 20px;
+    color: white;
+    margin-right: 10px;
+    border: none;
+}
+
+nav {
+    background-color: rgb(53, 53, 53);
+}

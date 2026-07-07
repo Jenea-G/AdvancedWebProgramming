@@ -5,23 +5,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/movies">Movies</a>
+        <a href="/search">Search</a>
+    </nav>
     <h1>Movies Search</h1>
 
     <h2>Filter by genre</h2>
 
     <p>
         <a href="/search">All Movies</a>
-        <a href="/search?genre=Sci-Fi">genre Sci-Fi</a>
-        <a href="/search?genre=Animation">genre Animation</a>
-        <a href="/search?genre=Drama">genre Drama</a>
-        <a href="/search?genre=Thriller">genre Thriller</a>
+        <a href="/search?genre=Sci-Fi">Sci-Fi</a>
+        <a href="/search?genre=Animation">Animation</a>
+        <a href="/search?genre=Drama">Drama</a>
+        <a href="/search?genre=Thriller">Thriller</a>
     </p>
 
     {% if genre %}
-    <p>Showing movies in <b>genre {{genre}}</b></p>
+    <p>Showing movies in genre <b>{{genre}}</b></p>
     {% else %}
     <p>Showing all movies</p>
     {% endif %}
