@@ -9,10 +9,18 @@
 
 <body>
     <h1>Movies</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/movies">Movies</a>
+    </nav>
+
     <ul>
+
         {% for movie in movies %}
         <li>
-            {{ movie.title}} - {{ movie.genre }} - {{ movie.year }}
+            {{ movie.title}} - {{ movie.genre }} - {{ movie.year }} -
+            <a href="/movie?title={{movie.title}}">View Movie</a>
         </li>
         {% endfor %}
     </ul>
