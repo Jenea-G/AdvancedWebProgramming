@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Add Movie</h1>
+
+    <form action="" method="POST">
+        <p>
+            <label for="">Title:</label>
+            <input type="text" name="title" required />
+        </p>
+
+        <p>
+            <label for="">Year:</label>
+            <input type="number" name="year" required />
+        </p>
+
+        <p>
+            <label for="">Genre:</label>
+            <input type="text" name="genre" required />
+        </p>
+
+        <button type="submit">Save Movie</button>
+    </form>
+
+    <p><a href="{{ url_for('index') }}">Go Back</a></p>
+</body>
+
+</html>
