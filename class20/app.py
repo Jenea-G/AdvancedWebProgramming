@@ -60,13 +60,38 @@ def add_movie():
         movie = Movie(title=title, year=int(year), genre=genre)
 
         # add and commit the new entry to the db
-        db.session.add(movie)
+        db.session.add(movie) # this is the object that should be inserted to the db
         db.session.commit()
 
         # once it's done, go back to the index page
         return redirect(url_for("index"))
     
     return render_template("add_movie.html")
+
+@app.route("/edit/<int:movie_id>", methods=["GET", "POST"])
+def edit_movie(movie_id):
+    movie = Movie.query.get_or_404(movie_id)
+
+    if request.method == "POST":
+        movie.title = request.form["title"]
+        movie.year = request.form["year"]
+        movie.genre = request.form["genre"]
+
+        db.session.commit() # updates the database with the changes
+
+        return redirect(url_for("index"))
+    
+    return render_template("edit_movie.html", movie=movie)
+
+@app.route("/delete/<int:movie_id>")
+def delete_movie(movie_id):
+    movie = Movie.query.get_or_404(movie_id)
+
+    db.session.delete(movie)
+    db.session.commit()
+
+    # go back to main page
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     app.run(debug=True)
