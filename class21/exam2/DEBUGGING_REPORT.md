@@ -79,3 +79,20 @@ in edit_album.html renamed attributes name and band to title and artist, and fie
 **Test:**  
 How did you confirm that it worked?
 Filled in the form and added an album, checked if it appeared in the page
+
+## Failed to delete album: The method is not allowed for the requested URL.
+
+**File:**  
+app.py
+
+**Problem:**  
+What was incorrect?
+in app.py "/albums/<int:album_id>/delete" route GET method is not allowed, changes are not saved to the database
+
+**Fix:**  
+What did you change?
+removed method, added db.session.commit()
+
+**Test:**  
+How did you confirm that it worked?
+Tesed by deleting a few albums.
