@@ -40,9 +40,10 @@ No more buildError showing, the index page is displaying "No albums have been ad
 **File:**  
 app.py add_album.html
 
-**Problem:**  
-in app.py "/albums/add" route was missing "POST" method and the created album wasn't added to the db thus we commited nothing
-in add_album template the method in the form was "GET" not "POST" which didnt sent data to the db.
+**Problem:**
+
+- in app.py "/albums/add" route was missing "POST" method and the created album wasn't added to the db thus we commited nothing
+- in add_album template the method in the form was "GET" not "POST" which didnt sent data to the db.
 
 **Fix:**  
 added POST to the "/albums/add" route and to the form.
@@ -58,13 +59,14 @@ app.py edit_album.html
 **Problem:**  
 Empty fields of edit form, changes were not saved.
 
-in app.py incorrect template attached to edit_album, wrong redirect point, wrong field name (request.form["amount"]), no commit to db
-in edit_album.html nonexistent album attributes "name", "band", and field name - "quantity"
+- in app.py incorrect template attached to edit_album, wrong redirect point, wrong field name (request.form["amount"]), no commit to db
+- in edit_album.html nonexistent album attributes "name", "band", and field name - "quantity"
 
-**Fix:**  
-in app.py returned correct template "add_album.html" and redirected to "index.html"
-corrected the attributes and added db.session.commit()
-in edit_album.html renamed attributes "name" and "band" to "title" and "artist", and field name "quantity" to "stock"
+**Fix:**
+
+- in app.py returned correct template "add_album.html" and redirected to "index.html"
+  corrected the attributes and added db.session.commit()
+- in edit_album.html renamed attributes "name" and "band" to "title" and "artist", and field name "quantity" to "stock"
 
 **Test:**  
 Filled in the form and added an album, checked if it appeared in the page
@@ -73,12 +75,17 @@ Filled in the form and added an album, checked if it appeared in the page
 
 **File:**  
 app.py
+index.html
 
-**Problem:**  
-In app.py "/albums/<int:album_id>/delete" route "GET" method is not allowed, whithout commit changes are not saved to the database
+**Problem:**
 
-**Fix:**  
-Removed method, added db.session.commit()
+- In app.py "/albums/<int:album_id>/delete" "POST" method is not allowed, also whithout commit, changes are not saved to the database
+- in index.html, link to delete is treated as get method.
+
+**Fix:**
+
+- In app.py added "POST" method and db.session.commit()
+- In index.html added form with "POST" method and delete button instead of delete link to allow POST. Added delete url to form actions
 
 **Test:**
 Tesed by deleting a few albums that were successfully removed.
