@@ -63,7 +63,7 @@ with app.app_context():
 
 @app.route("/")
 def index():
-    genre = request.args.get("category", "")
+    genre = request.args.get("genre", "") # changed to genre to match the request argument name
 
     if genre:
         albums = Album.query.filter_by(
