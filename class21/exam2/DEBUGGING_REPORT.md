@@ -39,3 +39,21 @@ added correct names for existing functions index() and add_album()
 **Test:**  
 How did you confirm that it worked?
 No more buildError showing, the index page is displaying "No albums have been added." as expected and add_album button shows the form
+
+## Failed to display an added album
+
+**File:**  
+app.py add_album.html
+
+**Problem:**  
+What was incorrect?
+in app.py "/albums/add" route was missing POST method and the created album wasn't added to the db thus we commited nothing
+in add_album template the method in the form was GET not POST which didnt sent data to the db.
+
+**Fix:**  
+What did you change?
+added POST to the "/albums/add" route and to the form.
+
+**Test:**  
+How did you confirm that it worked?
+Filled in the form and added an album, checked if it appeared in the page

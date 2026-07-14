@@ -81,7 +81,7 @@ def index():
 
 @app.route(
     "/albums/add",
-    methods=["GET"]
+    methods=["GET", "POST"] # missing POST method
 )
 def add_album():
     if request.method == "POST":
@@ -93,10 +93,11 @@ def add_album():
             stock=request.form["stock"]
         )
 
-        db.session.commit()
+        db.session.add(album) # add the new entry to the db
+        db.session.commit() # commit changes
 
         return redirect(
-            url_for("albums")
+            url_for("index") # correct redirect point
         )
 
     return render_template(

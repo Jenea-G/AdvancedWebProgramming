@@ -3,7 +3,8 @@ content %}
 
 <h2>Add Album</h2>
 
-<form method="GET" action="{{ url_for('add_album') }}">
+<form method="POST" action="{{ url_for('add_album') }}">
+    <!-- corrected method to POST as we want to send data to db -->
     <p>
         <label for="title">Title</label>
 
