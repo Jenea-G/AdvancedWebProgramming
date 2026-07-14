@@ -10,13 +10,13 @@ content %}
     <p>
         <label for="title">Title</label>
 
-        <input id="title" name="title" type="text" value="{{ album.name }}" required />
+        <input id="title" name="title" type="text" value="{{ album.title }}" required />
     </p>
 
     <p>
         <label for="artist">Artist</label>
 
-        <input id="artist" name="artist" type="text" value="{{ album.band }}" required />
+        <input id="artist" name="artist" type="text" value="{{ album.artist }}" required />
     </p>
 
     <p>
@@ -34,7 +34,7 @@ content %}
     <p>
         <label for="stock">Stock</label>
 
-        <input id="stock" name="quantity" type="number" min="0" value="{{ album.stock }}" required />
+        <input id="stock" name="stock" type="number" min="0" value="{{ album.stock }}" required />
     </p>
 
     <button type="submit">Update Album</button>
