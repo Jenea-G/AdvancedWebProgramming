@@ -51,7 +51,7 @@ class Album(db.Model):
 
     @property
     def in_stock(self):
-        return self.stock < 0
+        return self.stock > 0
 
     def __repr__(self):
         return self.id
@@ -67,15 +67,15 @@ def index():
 
     if genre:
         albums = Album.query.filter_by(
-            artist=genre
+            genre = genre
         ).all()
     else:
-        albums = Album.query.all
+        albums = Album.query.all()
 
     return render_template(
         "index.html",
-        album=albums,
-        selected_genre=genre
+        albums=albums,
+        genre=genre
     )
 
 
@@ -86,7 +86,7 @@ def index():
 def add_album():
     if request.method == "POST":
         album = Album(
-            title=request.form["album_name"],
+            title=request.form["title"],
             artist=request.form["artist"],
             genre=request.form["genre"],
             year=request.form["year"],
@@ -113,7 +113,7 @@ def edit_album(album_id):
 
     if request.method == "POST":
         album.title = request.form["title"]
-        album.band = request.form["artist"]
+        album.artist = request.form["artist"]
         album.genre = request.form["genre"]
         album.year = request.form["year"]
         album.stock = request.form["amount"]

@@ -18,18 +18,24 @@ What was incorrect?
 - added parentheses in line 60: "app.app_context()"
 
 **Test:**  
-How did you confirm that it worked?
+Successfully started the app by running: "flask --app app run --debug "
 
-## Bug title
+## BuildError: Could not build url for endpoint 'albums' and 'add'
 
 **File:**  
-Name of the file.
+base.html
 
 **Problem:**  
 What was incorrect?
+We dint create albums and add functions
+
+- <a href="{{ url_for('albums') }}"> All Albums </a>
+- <a href="{{ url_for('add') }}"> Add Album </a>
 
 **Fix:**  
 What did you change?
+added correct names for existing functions index() and add_album()
 
 **Test:**  
 How did you confirm that it worked?
+No more buildError showing, the index page is displaying "No albums have been added." as expected and add_album button shows the form
