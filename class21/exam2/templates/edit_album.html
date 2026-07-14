@@ -22,7 +22,15 @@ content %}
     <p>
         <label for="genre">Genre</label>
 
-        <input id="genre" name="genre" type="text" value="{{ album.genre }}" required />
+        <select id="genre" name="genre" required>
+            <option value="">Choose a genre</option>
+            <option value="Electronic" {% if album.genre=="Electronic" %} selected {% endif %}>Electronic</option>
+            <option value="Rock" {% if album.genre=="Rock" %} selected {% endif %}>Rock</option>
+            <option value="Hip-Hop" {% if album.genre=="Hip-Hop" %} selected {% endif %}>Hip-Hop</option>
+            <option value="Experimental" {% if album.genre=="Experimental" %} selected {% endif %}>Experimental</option>
+        </select>
+
+        <!-- <input id="genre" name="genre" type="text" value="{{ album.genre }}" required /> -->
     </p>
 
     <p>
