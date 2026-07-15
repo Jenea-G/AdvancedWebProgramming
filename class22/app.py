@@ -11,7 +11,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-
 # Let's define the Station model
 # the station has --> id, name, capacity
 class Station(db.Model):
@@ -34,6 +33,40 @@ class Station(db.Model):
         "Bike",
         back_populates="station" #refers to Bike.station
     )
+
+    # DOMAIN LOGIC:
+
+    @property
+    def bike_count(self):
+        return len(self.bikes)
+    
+    # available bikes!
+    @property
+    def available_bike_count(self):
+        sum = 0
+
+        for bike in self.bikes:
+            if bike.can_be_rented:
+                sum +=1
+
+        return sum
+    
+    @property
+    def remaining_capacity(self):
+        return self.capacity - self.bike_count
+    
+    @property
+    def has_space(self):
+        return self.remaining_capacity > 0 #True or False
+    
+    def add_bike(self, bike):
+        if not self.has_space:
+            return False
+        
+        self.bikes.append(bike) # relationship collection, we have to get a bike object
+        return True
+
+
     
     def __repr__(self):
         return (
@@ -77,11 +110,157 @@ class Bike(db.Model):
         back_populates="bikes" #refers to the attribute on Station.bikes
     )
 
+    @property
+    def needs_service(self):
+        # boolean value
+        # this value doesnt neet to be stored, since it can be calculated
+        return self.distance_km >= 1000
+
+    @property
+    def can_be_rented(self):
+        # another calculation
+        return (self.is_available and not self.needs_service)
+    
+    # rent
+    def rent(self):
+        if not self.can_be_rented:
+            return False
+        self.is_available = False
+        return True
+    
+    def return_bike(self):
+        self.is_available = True
+
+    def record_ride(self, distance):
+        if distance <=0:
+            return False
+        self.distance_km += distance
+        return True # we return true or false to signal if the operation was successful
+
     def __repr__(self):
         return (
             f"<Bike {self.id}: {self.bike_type}>"
         )
     
 
-
+# bidirectional relationship
 # Station.bikes <--> Bike.station
+
+# define every model before calling db.create_all()!!!
+with app.app_context():
+    db.create_all()
+
+    # downtown_station = Station(
+    #     name="Downtown Station",
+    #     capacity=4
+    # )
+
+    # print(downtown_station.bikes)
+
+    # bike_100 = Bike(
+    #     bike_type="Standard",
+    #     is_available=True,
+    #     distance_km=200
+    # )
+    # bike_101 = Bike(
+    #     bike_type="Electric",
+    #     is_available=True,
+    #     distance_km=800
+    # )
+    # bike_102 = Bike(
+    #     bike_type="Electric",
+    #     is_available=True,
+    #     distance_km=200
+    # )
+
+    # # these bikes have no station yet!
+
+    # # To Connect:
+
+    # downtown_station.bikes.append(bike_100)
+    # downtown_station.bikes.append(bike_101)
+
+    # bike_102.station = downtown_station
+
+    # print(downtown_station.bikes)
+    # print(bike_100.station)
+
+    # db.session.add(downtown_station) # adds the bikes together with station.
+
+    #  # db.session.add(bike_100) # db.session.add() can add only one object at a time
+    #  # db.session.add(bike_101)
+    #  # db.session.add(bike_102)
+
+    # db.session.commit() #commit only once to avoid duplicates
+
+@app.route("/")
+def home():
+    return redirect(url_for("stations"))
+
+@app.route("/stations")
+def stations():
+    all_stations = Station.query.all()
+    
+    return render_template("stations.html", stations=all_stations)
+
+@app.route("/stations/<int:station_id>")
+def station_detail(station_id):
+    station = Station.query.get_or_404(station_id)
+
+    return render_template("station_detail.html", station=station)
+
+@app.route("/bikes/<int:bike_id>/rent", methods=["POST"])
+def rent_bike(bike_id):
+    bike = Bike.query.get_or_404(bike_id)
+
+    # we use the method inside the Model Class!
+    if bike.rent():
+        db.session.commit()   #update the table
+
+    return redirect(url_for("station_detail", station_id=bike.station_id))
+
+@app.route("/bikes/<int:bike_id>/return", methods=["POST"])
+def return_bike(bike_id):
+    bike = Bike.query.get_or_404(bike_id)
+
+    bike.return_bike()
+    db.session.commit() #update the table
+
+    return redirect(url_for("station_detail", station_id=bike.station_id))
+
+@app.route("/bikes/add", methods=["GET", "POST"])
+def add_bike():
+    # query all our stations
+    stations = Station.query.all()
+
+    # make sure it's coming from a form with POST method
+    if request.method == "POST":
+        # get the station id
+        station_id = int(request.form["station_id"])
+
+        # query station
+        station = Station.query.get_or_404(station_id)
+
+        # create your Bike model
+        bike = Bike(
+            bike_type=request.form["bike_type"],
+            distance_km=float(request.form["distance_km"]),
+            is_available=True
+        )
+
+        # What if the station is full???
+        if not station.add_bike(bike):
+            return render_template(
+                "add_bike.html",
+                stations=stations,
+                error="The selected station is full"
+            )
+
+        db.session.add(bike) # add to db
+        db.session.commit() # commit to db
+
+        return redirect(url_for("station_detail", station_id=station.id))
+    
+    return render_template("add_bike.html", stations=stations)
+
+# challenge add ADD A STATION logic
