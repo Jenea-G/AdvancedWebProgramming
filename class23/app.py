@@ -151,6 +151,10 @@ def login():
             return render_template("login.html", username=username)
         
         # if not! we're good to go
+        
+        # login_user does not store the entire object in the browser
+        # Flask-Login stores identifying session information.
+        # On later requests, the user loader retrieves the model object.
         login_user(member)
 
         flash("You're now logged in.", "success")
@@ -159,16 +163,20 @@ def login():
     
     return render_template("login.html")
 
-#### logout
+#### LOGOUT
 @app.route("/logout", methods=["POST"])
 @login_required
 def logout():
+    logout_user()
+    # after logout_user(), current_user.is_authenticated becomes false. (flag)
 
-    flash(" You have been logged out.", "success")
+    flash("You have been logged out.", "success")
 
     return redirect(url_for("home"))
 
-#### dashboard
+
+#### DASHBOARD
+# Always maintain this order:
 @app.route("/dashboard") #1
 @login_required #2 - decorator
 def dashboard():
@@ -189,16 +197,16 @@ def dashboard():
             "spaces": 0,
         },
     ]
+
     return render_template("dashboard.html", workshops=workshops)
 
 
-#### account route
+#### ACCOUNT ROUTE
 @app.route("/account")
-@login.required
+@login_required
 def account():
     # we don't have to make any queries here, because session gives us all the data that we need
     return render_template("account.html")
-
 
 #### Changing Email
 @app.route("/account/email", methods=["POST"])
