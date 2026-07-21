@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from flask import (Flask, flash, redirect, render_template, request, url_for)
 from flask_login import (LoginManager, UserMixin, login_user, logout_user, current_user, login_required)
 
-from models import db
+from models import db, User
 
 app = Flask(__name__)
 
@@ -20,3 +20,85 @@ db.init_app(app)
 login_manager = LoginManager()      # Create the login manager
 login_manager.login_view = "login"  # Redirect unauthenticated users to /login
 login_manager.init_app(app)         # Attach manager to the app
+
+with app.app_context():
+    db.create_all()
+
+# load user
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.get(User, int(user_id))
+
+# Home route
+@app.route("/")
+def home():
+    return render_template("home.html")
+
+# Registeration Validation
+def validate_password(password):
+
+    if len(password) < 8:
+        return("Password must contain at least 8 characters.")
+    if len(password) > 20:
+        return("Password must contain at most 20 characters.") 
+    if not any(character.isupper() for character in password):
+        return("Password must contain at least one uppercase letter.")
+    if not any(character.isdigit() for character in password):
+        return("Password must contain a digit.")
+    
+    return None
+
+# Registration route
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("books"))
+    
+    if request.method == "POST":
+        username = request.form["username"].strip()
+        email = request.form["email"].strip().lower()
+        password = request.form["password"]
+
+        errors = []
+
+        if not username:
+            errors.append("Username is required")
+        if len(username) > 50:
+            errors.append("Username may contain at most 50 characters.") 
+        if any(character.isspace() for character in username):
+            errors.append("Username may not contain whitespace")
+
+        existing_username = User.query.filter_by(username=username).first()
+        if existing_username:
+            errors.append("This username is already in use!")
+
+        existing_email = User.query.filter_by(email=email).first()
+        if existing_email:
+            errors.append("This email is already registered.")
+
+        password_error = validate_password(password)
+        if password_error:
+            errors.append(password_error)
+
+        if errors:
+            for error in errors:
+                flash(error, "error")
+
+            return render_template("register.html", username=username, email=email)
+        
+        # no errors
+        user = User(username=username, email=email)
+
+        # hash the password
+        user.set_password(password)
+
+        # add it to the table
+        db.session.add(user)
+        db.session.commit()
+
+        flash("Your account has been created!", "success")
+
+        return redirect(url_for("login"))
+        # return redirect(url_for("home")) #to check if /registration works
+    
+    return render_template("register.html")

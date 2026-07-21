@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %} Shelf {% endblock %} {% block
+content %}
+<h1>Personal book shelf</h1>
+
+<p>Add your books and keep them in one place.</p>
+
+{% if current_user.is_authenticated %}
+<p>Welcome back, {{ current_user.username }}.</p>
+{% else %}
+<p>Create an account to access personal book shelf.</p>
+{% endif %} {% endblock %}
