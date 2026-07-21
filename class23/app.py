@@ -127,3 +127,105 @@ def register():
         return redirect(url_for("login"))
     
     return render_template("register.html")
+
+
+#### LOGIN!
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    # if authenticated, you can't login again!
+    if current_user.is_authenticated:
+        return redirect(url_for("dashboard"))
+    
+    if request.method == "POST":
+        username = request.form["username"].strip()
+        password = request.form["password"]
+
+        member = Member.query.filter_by(username=username).first()
+
+        # if no member is found, or the check password return false
+        if member is None or not member.check_password(password):
+            # why do we use one generic error?
+            # for the sake of security, we reveal as little information about the account as possible.
+            flash("Invalid username or password", "error")
+
+            return render_template("login.html", username=username)
+        
+        # if not! we're good to go
+        login_user(member)
+
+        flash("You're now logged in.", "success")
+
+        return redirect(url_for("dashboard"))
+    
+    return render_template("login.html")
+
+#### logout
+@app.route("/logout", methods=["POST"])
+@login_required
+def logout():
+
+    flash(" You have been logged out.", "success")
+
+    return redirect(url_for("home"))
+
+#### dashboard
+@app.route("/dashboard") #1
+@login_required #2 - decorator
+def dashboard():
+    workshops = [
+        {
+            "title": "Intro to Screen Printing",
+            "date": "August 8",
+            "spaces": 6,
+        },
+        {
+            "title": "Arduino for Beginners",
+            "date": "August 12",
+            "spaces": 3,
+        },
+        {
+            "title": "Woodworking Basics",
+            "date": "August 18",
+            "spaces": 0,
+        },
+    ]
+    return render_template("dashboard.html", workshops=workshops)
+
+
+#### account route
+@app.route("/account")
+@login.required
+def account():
+    # we don't have to make any queries here, because session gives us all the data that we need
+    return render_template("account.html")
+
+
+#### Changing Email
+@app.route("/account/email", methods=["POST"])
+@login_required
+def change_email():
+    email = request.form["email"].strip().lower()
+
+    if not email:
+        flash("Email is required!", "error")
+
+        return redirect(url_for("account"))
+    
+    # if the email already exists and doesn't belong to the logged in user
+    existing_member = Member.query.filter(Member.email == email, Member.id != current_user.id).first()
+
+    if existing_member:
+        flash("That email is already registered!", "error")
+
+        return redirect(url_for("account"))
+    
+    # if all good, update:
+    current_user.email = email
+
+    db.session.commit()
+
+    flash("Your email was updated.", "success")
+
+    return redirect(url_for("account"))
+
+    
