@@ -102,3 +102,44 @@ def register():
         # return redirect(url_for("home")) #to check if /registration works
     
     return render_template("register.html")
+
+# implement login
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("books")) # return to books if already logged in
+    
+    if request.method == "POST":
+        username = request.form["username"].strip()
+        password = request.form["password"]
+
+        user = User.query.filter_by(username=username).first()
+
+        # username or passwrod error
+        if user is None or not user.check_password(password):
+            flash("Invalid username or password", "error")
+
+            return render_template("login.html", username=username)
+        
+        # when no errors
+        login_user(user)
+
+        flash("You are now logged in.", "success")
+
+        return redirect(url_for("books"))
+    
+    return render_template("login.html")
+
+# implement logout
+@app.route("/logout", methods=["POST"])
+@login_required
+def logout():
+    logout_user()
+
+    flash("You have been logged out.", "success")
+    return redirect(url_for("home"))
+
+# Books route for testing login
+@app.route("/books")
+def books():
+    return render_template("books.html")
