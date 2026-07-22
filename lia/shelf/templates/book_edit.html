@@ -1,41 +1,46 @@
 {% extends "base.html" %} {% block title %} Add Book {% endblock %} {% block
 content %}
 
-<h2>Edit Book</h2>
+<section>
 
-{% if error %}
-<p>{{ error }}</p>
-{% endif %}
+    <h2>Edit Book</h2>
 
-<form method="POST" action="{{ url_for('edit_book', book_id=book.id) }}">
-    <p>
-        <label for="title">Book title</label>
-        <input type="text" id="title" name="title" maxlength="100" required value="{{ book.book_title }}">
-    </p>
-    <p>
-        <label for="author">Author</label>
-        <input type="text" id="author" name="author" maxlength="100" value="{{ book.book_author }}" required>
-    </p>
-    <p>
-        <label for="status">Reading status</label>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
 
-        <select id="status" name="status" required>
-            <option value="">Select reading status</option>
-            <option value="Want to read" {% if book.reading_status.value=="Want to read" %} selected {% endif %}>Want to
-                read
-            </option>
-            <option value="Reading" {% if book.reading_status.value=="Reading" %}selected {% endif %}>Reading</option>
-            <option value="Finished" {% if book.reading_status.value=="Finished" %}selected {% endif %}>Finished
-            </option>
-        </select>
-    </p>
+    <form method="POST" action="{{ url_for('edit_book', book_id=book.id) }}">
+        <p>
+            <label for="title">Book title</label>
+            <input type="text" id="title" name="title" maxlength="100" required value="{{ book.book_title }}">
+        </p>
+        <p>
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" maxlength="100" value="{{ book.book_author }}" required>
+        </p>
+        <p>
+            <label for="status">Reading status</label>
 
-    <p>
-        <label for="note">Note</label>
-        <textarea id="note" name="note" maxlength="1000" rows="3">{{ book.note or '' }}</textarea>
-    </p>
+            <select id="status" name="status" required>
+                <option value="">Select reading status</option>
+                <option value="Want to read" {% if book.reading_status.value=="Want to read" %} selected {% endif %}>
+                    Want to
+                    read
+                </option>
+                <option value="Reading" {% if book.reading_status.value=="Reading" %}selected {% endif %}>Reading
+                </option>
+                <option value="Finished" {% if book.reading_status.value=="Finished" %}selected {% endif %}>Finished
+                </option>
+            </select>
+        </p>
 
-    <button type="submit">Edit Book</button>
-</form>
+        <p>
+            <label for="note">Note</label>
+            <textarea id="note" name="note" maxlength="1000" rows="3">{{ book.note or '' }}</textarea>
+        </p>
 
+        <button type="submit">Edit Book</button>
+    </form>
+
+</section>
 {% endblock %}

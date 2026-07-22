@@ -1,11 +1,13 @@
 {% extends "base.html" %} {% block title %} Shelf {% endblock %} {% block
 content %}
-<h1>Personal book shelf</h1>
+<section>
+    <h1>Personal book shelf</h1>
 
-<p>Add your books and keep them in one place.</p>
 
-{% if current_user.is_authenticated %}
-<p>Welcome back, {{ current_user.username }}.</p>
-{% else %}
-<p>Login or create an account to access personal book shelf.</p>
+    {% if current_user.is_authenticated %}
+    <p class="welome">Welcome back, {{ current_user.username }}.</p>
+    {% else %}
+    <p class="welome">Welcome to personal book shelf application.</p>
+    <p>Login or create an account to access your personal book shelf.</p>
+</section>
 {% endif %} {% endblock %}

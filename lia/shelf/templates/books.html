@@ -1,28 +1,32 @@
 {% extends "base.html" %} {% block title %} Book shelf {% endblock %}
 {% block content %}
-<h1>Welcome, {{ current_user.username }}</h1>
-
-<p>Browse or add your books.</p>
-<a href="{{ url_for('add_book') }}">
-    Add a book
-</a>
 <section>
-    {% if books|length == 0 %}
-    <p>There are no books on your shelf yet.</p>
-    {% else %}
-    <h2>Your books:</h2>
-    <ol>
-        {% for book in books %}
-        <li>
-            Title: {{ book.book_title }}, author: {{ book.book_author }}, status: {{ book.reading_status.value }} >>
-            <a href="{{ url_for('edit_book', book_id=book.id) }}">Edit book</a>
-            <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-        {% endfor %}
-    </ol>
-    {% endif %}
 
+
+    <h1>Welcome, {{ current_user.username }}</h1>
+
+    <p>Browse or add your books.</p>
+    <a href="{{ url_for('add_book') }}">
+        Add a book
+    </a>
+    <div>
+        {% if books|length == 0 %}
+        <p>There are no books on your shelf yet.</p>
+        {% else %}
+        <h2>Your books:</h2>
+        <ol>
+            {% for book in books %}
+            <li>
+                Title: {{ book.book_title }}, author: {{ book.book_author }}, status: {{ book.reading_status.value }} >>
+                <a href="{{ url_for('edit_book', book_id=book.id) }}">Edit book</a>
+                <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+
+    </div>
 </section>
 {% endblock %}

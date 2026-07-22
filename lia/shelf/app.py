@@ -45,6 +45,8 @@ def validate_password(password):
         return("Password must contain at least one uppercase letter.")
     if not any(character.isdigit() for character in password):
         return("Password must contain a digit.")
+    if not password.find(' ') == -1:
+        return("Password must not contain spaces.")
     
     return None
 
