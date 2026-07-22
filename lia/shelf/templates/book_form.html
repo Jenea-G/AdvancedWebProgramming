@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %} Add Book {% endblock %} {% block
+content %}
+
+<h2>Add Book</h2>
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+<form method="POST" action="{{ url_for('add_book') }}">
+    <p>
+        <label for="title">Book title</label>
+        <input type="text" id="title" name="title" maxlength="100" required value="{{ title or '' }}">
+    </p>
+    <p>
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author" maxlength="100" value="{{ author or '' }}" required>
+    </p>
+    <p>
+        <label for="status">Reading status</label>
+
+        <select id="status" name="status" required>
+            <option value="">Select reading status</option>
+            <option value="Want to read" {% if selected_status=="Want to read" %} selected {% endif %}>Want to read
+            </option>
+            <option value="Reading" {% if selected_status=="Reading" %}selected {% endif %}>Reading</option>
+            <option value="Finished" {% if selected_status=="Finished" %}selected {% endif %}>Finished</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="note">Note</label>
+        <textarea id="note" name="note" maxlength="1000" rows="3">{{ note or '' }}</textarea>
+    </p>
+
+    <button type="submit">Add Book</button>
+</form>
+
+{% endblock %}

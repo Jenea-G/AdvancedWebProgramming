@@ -14,10 +14,11 @@
     <ol>
         {% for book in books %}
         <li>
-            Title: {{ book.book_title }}, author: {{ book.book_author }}, status: {{ book.reading_status }}
+            Title: {{ book.book_title }}, author: {{ book.book_author }}, status: {{ book.reading_status.value }}
         </li>
+        {% endfor %}
     </ol>
-    {% endfor %}{% endif %}
+    {% endif %}
 
 </section>
 {% endblock %}

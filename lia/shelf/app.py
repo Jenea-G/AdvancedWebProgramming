@@ -139,10 +139,64 @@ def logout():
     flash("You have been logged out.", "success")
     return redirect(url_for("home"))
 
-# Books route for testing login
+# Books route
 @app.route("/books", methods=["GET"])
 @login_required
 def books():
     user = User.query.get_or_404(current_user.id)
     books = user.reading_list
     return render_template("books.html", books=books)
+
+# adding a book
+@app.route("/books/add", methods=["GET", "POST"])
+@login_required
+def add_book():
+    errors = []
+    def valid_string(value):
+        if (0 < len(value) <= 100): return True
+        return False
+    if request.method == "POST":
+        title = request.form["title"].strip()
+        author = request.form["author"].strip()
+        note = request.form["note"].strip()
+        status_value = request.form["status"].strip()
+
+        if not valid_string(title):
+            errors.append("Title is required and should be at most 100 characters long.")
+
+        if not valid_string(author):
+            errors.append("Author is required and should be at most 100 characters long.")
+
+        if len(note) > 1000:
+            errors.append("The note length shouldn't exceed 1000 characters.")
+
+        try:
+            status = ReadingStatus(status_value)
+        except ValueError:
+            errors.append("Reading status is invalid.")
+
+        if errors:
+                for error in errors:
+                    flash(error, "error")
+
+                return render_template("book_form.html", title=title, author=author, note=note, selected_status=status_value)
+    
+        # create book if no errors
+        book = Book(
+            book_title = title,
+            book_author = author,
+            note = note,
+            reading_status = status,
+            user_id = current_user.id
+        )
+
+        # add it to the table
+        db.session.add(book)
+        db.session.commit()
+
+        flash("Your book has successfully been added to the reading list", "success")
+
+        return redirect(url_for("books"))
+    
+    return render_template("book_form.html")
+        
