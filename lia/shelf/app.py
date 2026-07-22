@@ -247,3 +247,15 @@ def edit_book(book_id):
         return redirect(url_for("books"))
     
     return render_template("book_edit.html", book=book)
+
+@app.route("/books/<int:book_id>/delete", methods=["POST"])
+def delete_book(book_id):
+    # get the book
+    book = Book.query.filter_by(id=book_id, user_id=current_user.id).first_or_404() #to get only this user book
+          
+    # delete
+    db.session.delete(book)
+    db.session.commit()
+
+    flash("Your book was successfully deleted", "success")
+    return redirect(url_for("books"))
