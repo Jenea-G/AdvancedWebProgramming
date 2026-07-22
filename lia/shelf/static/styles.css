@@ -5,6 +5,8 @@
     padding: 0;
     font-family: "Raleway", sans-serif;
     box-sizing: border-box;
+    line-height: 1.5;
+    font-weight: 500;
 }
 
 .container {
@@ -14,10 +16,16 @@
 }
 
 section {
-    padding: 60px 0;
+    margin-top: 20px;
+    padding: 40px 20px;
+    background-color: rgba(245, 245, 245, 0.75);
+    border-radius: 30px;
+    /* box-shadow: 20px rgba(0, 0, 0); */
 }
 
-h1 {
+h1,
+h2 {
+    font-weight: 700;
     margin-bottom: 20px;
 }
 
@@ -36,26 +44,87 @@ body {
 }
 
 header {
-    background-color: rgba(245, 245, 245, 0.801);
+    background-color: rgba(245, 245, 245, 0.8);
 }
 
 nav {
     display: flex;
     justify-content: center;
     gap: 30px;
-
     padding: 15px 0;
 }
 
-nav a {
+.nav-btn {
+    background: none;
+    border: none;
+}
+
+nav a,
+.nav-btn {
     display: block;
     color: black;
+    font-size: 15px;
     text-decoration: none;
     border-bottom: 2px solid transparent;
     transition: 0.3s;
 }
 
-nav a:hover {
+nav a:hover,
+.nav-btn:hover {
     color: darkgreen;
     border-bottom: 2px solid darkgreen;
+}
+
+input,
+textarea,
+select {
+    /* color: #1D2025; */
+    width: 100%;
+    padding: 8px;
+    /* box-sizing: border-box; */
+    margin-top: 0.2em;
+    border: 1px solid #000000;
+    /* remplace outline par border directement */
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border: 2px solid darkgreen;
+    outline: none;
+    /* deactivate browser's outline */
+}
+
+label {
+    font-size: 15px;
+    font-weight: 500;
+    display: block;
+    margin-top: 1em;
+}
+
+.form {
+    min-width: 300px;
+    width: 50%;
+}
+
+.btn {
+    border: none;
+    background-color: darkgreen;
+    color: white;
+    padding: 8px 16px;
+    margin-top: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+a.btn {
+    display: inline-block;
+    margin-bottom: 16px;
+    text-decoration: none;
 }

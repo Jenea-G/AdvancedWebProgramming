@@ -3,7 +3,7 @@ block content %}
 <section>
     <h1>Member login</h1>
 
-    <form method="post">
+    <form method="post" class="form">
         <div>
             <label for="username"> Username </label>
             <input id="username" name="username" type="text" value="{{ username or '' }}" required />
@@ -14,7 +14,7 @@ block content %}
             <input id="password" name="password" type="password" required />
         </div>
 
-        <button type="submit">Log in</button>
+        <button class="btn" type="submit">Log in</button>
     </form>
 </section>
 {% endblock %}
