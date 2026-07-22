@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from flask import (Flask, flash, redirect, render_template, request, url_for)
 from flask_login import (LoginManager, UserMixin, login_user, logout_user, current_user, login_required)
 
-from models import db, User
+from models import db, User, Book, ReadingStatus
 
 app = Flask(__name__)
 
@@ -140,6 +140,9 @@ def logout():
     return redirect(url_for("home"))
 
 # Books route for testing login
-@app.route("/books")
+@app.route("/books", methods=["GET"])
+@login_required
 def books():
-    return render_template("books.html")
+    user = User.query.get_or_404(current_user.id)
+    books = user.reading_list
+    return render_template("books.html", books=books)
