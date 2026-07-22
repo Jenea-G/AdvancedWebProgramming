@@ -152,19 +152,17 @@ def books():
 @login_required
 def add_book():
     errors = []
-    def valid_string(value):
-        if (0 < len(value) <= 100): return True
-        return False
+
     if request.method == "POST":
         title = request.form["title"].strip()
         author = request.form["author"].strip()
         note = request.form["note"].strip()
         status_value = request.form["status"].strip()
 
-        if not valid_string(title):
+        if not Book.valid_string(title):
             errors.append("Title is required and should be at most 100 characters long.")
 
-        if not valid_string(author):
+        if not Book.valid_string(author):
             errors.append("Author is required and should be at most 100 characters long.")
 
         if len(note) > 1000:
@@ -200,3 +198,52 @@ def add_book():
     
     return render_template("book_form.html")
         
+# editing a book
+@app.route("/books/<int:book_id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_book(book_id):
+    book = Book.query.filter_by(id=book_id, user_id=current_user.id).first_or_404() #to get only this user book
+
+    errors = []
+
+    if request.method == "POST":
+        title = request.form["title"].strip()
+        author = request.form["author"].strip()
+        note = request.form["note"].strip()
+        status_value = request.form["status"].strip()
+
+        if not Book.valid_string(title):
+            errors.append("Title is required and should be at most 100 characters long.")
+
+        if not Book.valid_string(author):
+            errors.append("Author is required and should be at most 100 characters long.")
+
+        if len(note) > 1000:
+            errors.append("The note length shouldn't exceed 1000 characters.")
+
+        try:
+            status = ReadingStatus(status_value)
+        except ValueError:
+            errors.append("Reading status is invalid.")
+
+        if errors:
+                for error in errors:
+                    flash(error, "error")
+
+                return render_template("book_edit.html", book=book)
+    
+        # update book if no errors
+        
+        book.book_title = title
+        book.book_author = author
+        book.note = note
+        book.reading_status = status   
+
+        # add changes to the db
+        db.session.commit()
+
+        flash("Your book was successfully updated", "success")
+
+        return redirect(url_for("books"))
+    
+    return render_template("book_edit.html", book=book)

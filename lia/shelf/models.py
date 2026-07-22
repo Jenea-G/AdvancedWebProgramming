@@ -65,6 +65,11 @@ class Book(db.Model):
         back_populates="reading_list" #refers to the attribute on User.reading_list
     )
 
+    @staticmethod
+    def valid_string(value):
+        if (0 < len(value) <= 100): return True
+        return False
+
     def __repr__(self):
         return (
             f"<Book {self.id}: {self.book_title} by {self.book_author}>"
