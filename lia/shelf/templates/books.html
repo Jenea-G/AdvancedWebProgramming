@@ -10,9 +10,11 @@
         Add a book
     </a>
     <div>
+        <!-- Check if the user has books -->
         {% if books|length == 0 %}
         <p>There are no books on your shelf yet.</p>
         {% else %}
+        <!-- display table if there are books -->
         <h2>Your books:</h2>
         <table>
 
@@ -28,6 +30,7 @@
 
             </thead>
             <tbody>
+                <!-- Create a table row for each book -->
                 {% for book in books %}
                 <tr>
                     <td>{{ loop.index }}</td> <!-- iterator for numbering -->
@@ -42,6 +45,7 @@
                         </div>
                     </td>
                 </tr>
+                <!-- end of book row -->
                 {% endfor %}
             </tbody>
         </table>
