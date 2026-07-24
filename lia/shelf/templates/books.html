@@ -14,19 +14,39 @@
         <p>There are no books on your shelf yet.</p>
         {% else %}
         <h2>Your books:</h2>
-        <ol>
-            {% for book in books %}
-            <li>
-                Title: {{ book.book_title }}, author: {{ book.book_author }}, status: {{ book.reading_status.value }} >>
-                <a href="{{ url_for('edit_book', book_id=book.id) }}">Edit book</a>
-                <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-            {% endfor %}
-        </ol>
-        {% endif %}
+        <table>
 
+            <thead>
+                <tr>
+                    <th class="w20">N</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th class="w120">Status</th>
+                    <th>Note</th>
+                    <th class="w120">Actions</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ loop.index }}</td> <!-- iterator for numbering -->
+                    <th>{{ book.book_title }}</th>
+                    <td>{{ book.book_title }}</td>
+                    <td>{{ book.reading_status.value }}</td>
+                    <td>{{ book.note }}</td>
+                    <td>
+                        <div class="t-actions">
+                            <a class="t-action t-ancor" href="{{ url_for('edit_book', book_id=book.id) }}">Edit</a>
+                            <button class="t-action t-btn" type="submit">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
+
 </section>
 {% endblock %}

@@ -11,14 +11,14 @@
 
 .container {
     width: 90%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 section {
     margin-top: 20px;
     padding: 40px 20px;
-    background-color: rgba(245, 245, 245, 0.75);
+    background-color: rgba(245, 245, 245, 0.8);
     border-radius: 30px;
     /* box-shadow: 20px rgba(0, 0, 0); */
 }
@@ -127,4 +127,85 @@ a.btn {
     display: inline-block;
     margin-bottom: 16px;
     text-decoration: none;
+}
+
+/* books display table */
+
+table {
+    font-size: 14px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid darkgreen;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+}
+
+th,
+td {
+    border-right: 1px solid darkgreen;
+    border-bottom: 1px solid darkgreen;
+    padding: 8px 10px;
+}
+
+th {
+    font-weight: 700;
+}
+
+/* Remove extra borders on edges */
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+tbody tr:last-child td,
+tbody tr:last-child th {
+    border-bottom: none;
+}
+
+thead {
+    background: rgba(0, 100, 0, 0.5);
+    color: white;
+    letter-spacing: 0.8px;
+}
+
+.w120 {
+    width: 120px;
+}
+
+.w20 {
+    width: 20px;
+}
+
+.t-action {
+    width: 55px;
+    display: inline-block;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.t-action:hover {
+    opacity: 0.8;
+}
+
+.t-btn {
+    border: 1px solid orangered;
+    color: orangered;
+    background: rgba(255, 68, 0, 0.169);
+}
+
+.t-ancor {
+    background: rgba(0, 100, 0, 0.5);
+    color: #ffffffd8;
+    text-decoration: none;
+    text-align: center;
+    padding: auto;
+    border: 1px solid darkgreen;
+}
+
+.t-actions {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
 }
