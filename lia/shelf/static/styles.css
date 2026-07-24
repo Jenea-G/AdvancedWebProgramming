@@ -204,3 +204,19 @@ thead {
     justify-content: space-around;
     gap: 5px;
 }
+
+.success {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 2px solid rgba(0, 100, 0, 0.8);
+    color: darkgreen;
+    border-radius: 20px;
+}
+
+.error {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 2px solid rgba(255, 0, 0, 0.8);
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 20px;
+}
